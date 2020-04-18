@@ -1,20 +1,18 @@
 require 'rack'
-require "'erb'
+# require 'erb'
 
-# start with creating a server
-
-
-
-# server needs routes!
-
-
-
-# initialize app
+def call(env)
+  req = Rack::Request.new(env)
+  case req.path_info
+  when /hello/
+end
 
 
-
-# retrieve data objects from Toronto
+Rack::Handler::WEBrick.run(app, options = {})
 
 
 
-# map out data objects to heatmap?
+# I need my app to:
+#
+# - listen to a get request from my client
+# - return the ip address of my client
