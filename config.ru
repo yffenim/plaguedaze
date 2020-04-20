@@ -26,26 +26,57 @@
 #   end
 # end
 
-class RackAppRoutes
+require 'erb'
 
+# class MainPage
+#   # render tempalte
+#
+#   # receive api object
+#   def receive_api
+#   end
+#
+#
+#
+# end
+
+
+
+class RackApp
+# create a template for response body
+  @@template = ERB.new File.read("template.html.erb")
+
+# render the static html template
+  def render_template
+    @@template
+  end
+
+# since I am instantiating a class, I need to have a call method
   def call(env)
     req = Rack::Request.new(env)
     if req.get?
-      [200, {'Content-Type' => 'text/plain'},
-      ["This is a successful get request!"]]
+      successful_get_request
     else
-    unsuccessful_request
+      unsuccessful_request
     end
   end
 
-  def successful_get_request(env)
+  def successful_get_request
+    resp = Rack::Response.new
+    resp.status = 200
+    resp.set_header('Content-Type', 'text/plain')
+    resp.write(@@template)
+    resp.finish
+    # [200, {'Content-Type' => 'text/plain'},
+    # ["This is a successful get request!"]]
+  end
 
+  def unsuccessful_request
   end
 
 end
 
 # create an instance of the app and store it in app variable
-app = RackAppRoutes.new
+app = RackApp.new
 
 # call run on the app
 run app
