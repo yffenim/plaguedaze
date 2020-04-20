@@ -28,28 +28,21 @@
 
 require 'erb'
 
-# class MainPage
-#   # render tempalte
-#
-#   # receive api object
-#   def receive_api
-#   end
-#
-#
-#
-# end
+class Template
+  # create a template for response body
+    @template_display = ERB.new File.read("template.html.erb")
 
+    class << self
+      attr_accessor :template_display
+    end
 
-
-class RackApp
-# create a template for response body
-  @@template = ERB.new File.read("template.html.erb")
-
-# render the static html template
-  def render_template
-    @@template
+  # receive api object
+  def receive_api
   end
 
+end
+
+class RackApp
 # since I am instantiating a class, I need to have a call method
   def call(env)
     req = Rack::Request.new(env)
@@ -64,7 +57,7 @@ class RackApp
     resp = Rack::Response.new
     resp.status = 200
     resp.set_header('Content-Type', 'text/plain')
-    resp.write(@@template)
+    resp.write(Template::template_display)
     resp.finish
     # [200, {'Content-Type' => 'text/plain'},
     # ["This is a successful get request!"]]
