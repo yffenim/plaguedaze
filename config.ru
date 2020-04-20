@@ -17,18 +17,35 @@
 # info that the call returns
 
 
-class RackAppGetRequests
+# class RackAppGetRequests
+#
+#   def call(env)
+#     # use env as argument for the call method
+#     [200, {'Content-Type' => 'text/plain'},
+#     ["This is a successful get request!"]]
+#   end
+# end
+
+class RackAppRoutes
 
   def call(env)
-    # use env as argument for the call method
-    [200, {'Content-Type' => 'text/plain'},
-    ["This is a successful get request!"]]
+    req = Rack::Request.new(env)
+    if req.get?
+      [200, {'Content-Type' => 'text/plain'},
+      ["This is a successful get request!"]]
+    else
+    unsuccessful_request
+    end
+  end
+
+  def successful_get_request(env)
+
   end
 
 end
 
 # create an instance of the app and store it in app variable
-app = RackAppGetRequests.new
+app = RackAppRoutes.new
 
 # call run on the app
 run app
