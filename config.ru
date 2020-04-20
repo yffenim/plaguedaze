@@ -32,6 +32,8 @@ class Template
   # create a template for response body
     @template_display = ERB.new File.read("template.html.erb")
 
+  # setting self to Template's metaclass so that it is a "layer" above
+  # and template_display can be accessible like a class variable? Rewrite
     class << self
       attr_accessor :template_display
     end
