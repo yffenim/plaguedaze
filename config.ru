@@ -50,18 +50,33 @@ class Template
 end
 
 class RackApp
-  attr_reader :html
+  # attr_reader :html
 # since I am instantiating a class, I need to have a call method
   def call(env)
+
+  # Create a request object
     req = Rack::Request.new(env)
-    if req.get?
-      # p env
-      # [200, { "Content-Type" => "text/html" },
-      #   ["S'up Bub"]]
-      successful_get_request
-    else
-      unsuccessful_request
-    end
+
+  # Check request path
+    @req_path = req.path
+      if @req_path != "/"
+        [404, { "Content-Type" => "text/html" }, ["<h1>404</h1>"]]
+      else
+        check_request
+        if req.get?
+          successful_get_request
+        else
+          unsuccessful_request
+        end
+      end
+  end
+
+  def check_path
+
+  end
+
+  def check_request
+
   end
 
   def successful_get_request
