@@ -31,7 +31,7 @@ require 'erb'
 class Template
   # test out how to render an ERB
     # ERB.new(<h1>Erb Rendering</h1>).result.binding
-    @erb_object = ERB.new("<h1>Erb Rendering</h1>").result(binding)
+    # @erb_object = ERB.new("<h1>Erb Rendering</h1>").result(binding)
 
   # create a template for response body
     @template_display = ERB.new(File.read("template.html.erb")).result(binding)
@@ -40,7 +40,7 @@ class Template
   # and template_display can be accessible like a class variable? Rewwrite?
     class << self
       attr_accessor :template_display
-      attr_accessor :erb_object
+      # attr_accessor :erb_object
     end
 
   # receive api object
@@ -50,6 +50,7 @@ class Template
 end
 
 class RackApp
+  attr_reader :html
 # since I am instantiating a class, I need to have a call method
   def call(env)
     req = Rack::Request.new(env)
@@ -66,7 +67,7 @@ class RackApp
   def successful_get_request
     resp = Rack::Response.new
     resp.status = 200
-    resp.set_header('Content-Type', 'text/plain')
+    resp.set_header('Content-Type', 'text/html')
     # resp.write(Template::erb_object)
     resp.write(Template::template_display)
     p resp
