@@ -29,13 +29,18 @@
 require 'erb'
 
 class Template
+  # test out how to render an ERB
+    # ERB.new(<h1>Erb Rendering</h1>).result.binding
+    @erb_object = ERB.new("<h1>Erb Rendering</h1>").result(binding)
+
   # create a template for response body
     @template_display = ERB.new File.read("template.html.erb")
-
+    # @template_display.result(binding)
   # setting self to Template's metaclass so that it is a "layer" above
   # and template_display can be accessible like a class variable? Rewwrite?
     class << self
       attr_accessor :template_display
+      attr_accessor :erb_object
     end
 
   # receive api object
@@ -49,10 +54,10 @@ class RackApp
   def call(env)
     req = Rack::Request.new(env)
     if req.get?
-      p env
-          [200, { "Content-Type" => "text/html" },
-            ["S'up Bub"]]
-      # successful_get_request
+      # p env
+      # [200, { "Content-Type" => "text/html" },
+      #   ["S'up Bub"]]
+      successful_get_request
     else
       unsuccessful_request
     end
@@ -62,7 +67,10 @@ class RackApp
     resp = Rack::Response.new
     resp.status = 200
     resp.set_header('Content-Type', 'text/plain')
-    resp.write(Template::template_display)
+    resp.write(Template::erb_object)
+    # resp.write(Template::template_display)
+    p resp
+
     resp.finish
     # [200, {'Content-Type' => 'text/plain'},
     # ["This is a successful get request!"]]
