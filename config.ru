@@ -49,25 +49,25 @@ class Template
 
 end
 
-class RackApp
+# class RackApp
   # attr_reader :html
 # since I am instantiating a class, I need to have a call method
-  def call(env)
-  # Create a request object
-    @req = Rack::Request.new(env)
-    handle_request_object
-  end
+  # def call(env)
+  # # Create a request object
+  #   @req = Rack::Request.new(env)
+  #   handle_request_object
+  # end
 
-  def handle_request_object
-    if @req.path != "/"
+  def handle_request_object(req)
+    if req.path != "/"
        [404, { "Content-Type" => "text/html" }, ["<h1>404</h1>"]]
     else
-      check_method
+      check_method(req)
     end
   end
 
-  def check_method
-    if @req.get?
+  def check_method(req)
+    if req.get?
       successful_get_request
     else
       unsuccessful_request
@@ -83,6 +83,9 @@ class RackApp
     p resp
 
     resp.finish
+
+    # serve static files
+    # Rack::Static.new(resp, :urls => ["/static"])
     # [200, {'Content-Type' => 'text/plain'},
     # ["This is a successful get request!"]]
   end
@@ -92,10 +95,19 @@ class RackApp
     # ["No hakkerz plz"]]
   end
 
+# end
+
+def final_app_server
+  # app is my rack app, it needs to return an array of status, header, body
+  app = Proc.new do |env|
+  # Creating a proc because each app instance needs to remember its env context
+  # which I then assemble:
+    req = Rack::Request.new(env)
+    handle_request_object(req)
+  end
+# returns an array env that can be served as argument to a run
+# use rack static as middleware here
 end
 
-# create an instance of the app and store it in app variable
-app = RackApp.new
-
 # call run on the app
-run app
+run final_app_server
