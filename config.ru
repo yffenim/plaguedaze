@@ -59,11 +59,7 @@ class RackApp
   end
 
   def handle_request_object
-    if
-      @req.path == "/js"
-      [200, { "Content-Type" => "text/javascript" }, ["alert('hi');"]]
-    elsif
-      @req.path != "/"
+    if @req.path != "/"
        [404, { "Content-Type" => "text/html" }, ["<h1>404</h1>"]]
     else
       check_method
