@@ -29,10 +29,6 @@
 require 'erb'
 
 class Template
-  # test out how to render an ERB
-    # ERB.new(<h1>Erb Rendering</h1>).result.binding
-    # @erb_object = ERB.new("<h1>Erb Rendering</h1>").result(binding)
-
   # create a template for response body
     @template_display = ERB.new(File.read("template.html.erb")).result(binding)
     # @template_display.result(binding)
@@ -46,56 +42,43 @@ class Template
   # receive api object
   def receive_api
   end
-
 end
 
-# class RackApp
-  # attr_reader :html
-# since I am instantiating a class, I need to have a call method
-  # def call(env)
-  # # Create a request object
-  #   @req = Rack::Request.new(env)
-  #   handle_request_object
-  # end
+# Handling request
 
-  def handle_request_object(req)
-    if req.path != "/"
-       [404, { "Content-Type" => "text/html" }, ["<h1>404</h1>"]]
-    else
-      check_method(req)
-    end
+def handle_request_object(req)
+  if req.path != "/"
+     [404, { "Content-Type" => "text/html" }, ["<h1>404</h1>"]]
+  else
+    check_method(req)
   end
+end
 
-  def check_method(req)
-    if req.get?
-      successful_get_request
-    else
-      unsuccessful_request
-    end
+def check_method(req)
+  if req.get?
+    successful_get_request
+  else
+    unsuccessful_request
   end
+end
 
-  def successful_get_request
-    resp = Rack::Response.new
-    resp.status = 200
-    resp.set_header('Content-Type', 'text/html')
-    # resp.write(Template::erb_object)
-    resp.write(Template::template_display)
-    p resp
+def successful_get_request
+  resp = Rack::Response.new
+  resp.status = 200
+  resp.set_header('Content-Type', 'text/html')
+  resp.write(Template::template_display)
+  p resp
 
-    resp.finish
+  resp.finish
+end
 
-    # serve static files
-    # [200, {'Content-Type' => 'text/plain'},
-    # ["This is a successful get request!"]]
-  end
+def unsuccessful_request
+  # [200, {'Content-Type' => 'text/plain'},
+  # ["No hakkerz plz"]]
+end
 
-  def unsuccessful_request
-    # [200, {'Content-Type' => 'text/plain'},
-    # ["No hakkerz plz"]]
-  end
 
-# end
-
+# Serving the final response object
 def final_app_server
   # app is my rack app, it needs to return an array of status, header, body
   app = Proc.new do |env|
@@ -105,8 +88,7 @@ def final_app_server
     handle_request_object(req)
   end
 # use rack static as middleware here
-Rack::Static.new(app, :urls => ["/static"])
-
+  Rack::Static.new(app, :urls => ["/static"])
 end
 
 # call run on the app
