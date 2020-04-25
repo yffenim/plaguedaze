@@ -85,7 +85,6 @@ end
     resp.finish
 
     # serve static files
-    # Rack::Static.new(resp, :urls => ["/static"])
     # [200, {'Content-Type' => 'text/plain'},
     # ["This is a successful get request!"]]
   end
@@ -105,8 +104,9 @@ def final_app_server
     req = Rack::Request.new(env)
     handle_request_object(req)
   end
-# returns an array env that can be served as argument to a run
 # use rack static as middleware here
+Rack::Static.new(app, :urls => ["/static"])
+
 end
 
 # call run on the app
