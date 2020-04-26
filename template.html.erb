@@ -6,10 +6,13 @@
     <link rel="stylesheet" type="text/css" href="static/stylesheet.css" media="screen"/>
   </head>
   <body>
-    <h1>Eyes On the Fucking Price</h1>
+    <h1>HTML template page is rendered</h1>
 
     <button id="click" onclick="clickFunction()">Click to download GeoJson</button>
-    <p id="show-text"></p>
+
+    <button type="button"
+    onclick="document.getElementById('click').innerHTML = Date()">
+    Click me to display Date and Time.</button>
 
   <script src="static/scripts.js">
   </script>

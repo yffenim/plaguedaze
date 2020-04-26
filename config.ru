@@ -77,6 +77,7 @@ def unsuccessful_request
   # ["No hakkerz plz"]]
 end
 
+
 # Serving the final response object
 def final_app_server
   # app is my rack app, it needs to return an array of status, header, body
