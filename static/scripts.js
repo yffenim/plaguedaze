@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   function clickFunction() {
     document.getElementById("show-text").innerHTML = "RENDER TEXT HERE";
   };
-// 
+//
 // var url =  "https://data.ontario.ca/dataset/confirmed-positive-cases-of-covid-19-in-ontario";
 // window.location.href = url
 // var click = window.document.getElementsByClassName("resource-url-analytics btn btn-primary dataset-download-link")[1].href
@@ -13,7 +13,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 // bring back the inner html of the set_header
 // and display it when page loads
 
-
-
+//
+//
+// <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRXqokIUzGRNeF5WH6_hOsiAmhPtXHJpU&callback=initMap"
+// type="text/javascript"></script>
 
 });
