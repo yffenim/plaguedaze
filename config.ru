@@ -1,4 +1,5 @@
 require 'erb'
+require 'bundler'
 
 class Template
   # create a template for response body
@@ -12,16 +13,10 @@ class Template
     end
 
   # receive api object
-  def receive_api
-  end
-
-  # figure out a way to get my api key from hidden
-  def hide_api_key
-  end
-
   def google_api_call
+    @google_api_key = "https://maps.googleapis.com/maps/api/js?
+    key=" + ENV['google_api_key'] + "&callback=initMap"
   end
-
 end
 
 # Handling request

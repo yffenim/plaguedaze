@@ -17,6 +17,9 @@ var map = new google.maps.Map(
 var marker = new google.maps.Marker({position: uluru, map: map});
 }
 
+
+
+
 //
 // var url =  "https://data.ontario.ca/dataset/confirmed-positive-cases-of-covid-19-in-ontario";
 // window.location.href = url
