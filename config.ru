@@ -1,7 +1,16 @@
+$:.unshift File.dirname(__FILE__)
+
 require 'erb'
+require 'json'
 require 'bundler'
 
+# to do's:
+# figure out this load path issue because my ENV isn't getting accessed
+# reorganize everything into separate modules
+# figure out how to click a download for something that isn't an api
+
 class Template
+    attr_reader :google_api_key
   # create a template for response body
     @template_display = ERB.new(File.read("template.html.erb")).result(binding)
     # @template_display.result(binding)
@@ -9,15 +18,25 @@ class Template
   # and template_display can be accessible like a class variable? Rewwrite?
     class << self
       attr_accessor :template_display
-      # attr_accessor :erb_object
     end
 
-  # receive api object
-  def google_api_call
-    @google_api_key = "https://maps.googleapis.com/maps/api/js?
-    key=" + ENV['google_api_key'] + "&callback=initMap"
-  end
+    attr_accessor :google_api_key
+  # trying to hide my api key in env but it is
+  # still going to how up front end in browser?
+    # key = File.read(".env")
+    # puts key
+    #
+    # @google_api_key = %(https://maps.googleapis.com/maps/api/js?key=#{key}&callback=initMap)
+    # puts @google_api_key
+
 end
+
+
+
+
+# MapsApi.new(key)
+
+
 
 # Handling request
 

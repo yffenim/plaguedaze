@@ -15,6 +15,15 @@
     Click me to display Date and Time.</button>
     <div id="map"></div>
 
+    <h2>Test: <% if @google_api_key == nil %>
+      Is empty
+      <% else %>
+      <%= @google_api_key %> </h2>
+      <% end %>
+
+
+
+
   <script src="static/scripts.js">
 
   </script>

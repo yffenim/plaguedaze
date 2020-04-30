@@ -1,2 +1,2 @@
 .env
-application.yml
+config/application.yml
