@@ -2,10 +2,15 @@ $:.unshift File.dirname(__FILE__)
 
 require 'erb'
 require 'json'
+require 'rgeo/geo_json'
 require 'bundler'
 
 # to do's:
-# figure out this load path issue because my ENV isn't getting accessed
+# extent heatmap range so that GTA is covered, not just Toronto or
+# iterate over geoJson data to get coordinates only for downtown Toronto
+# find a way to sort the data based on resolved, current, or pending cases
+# implement various sort/searching methods
+
 # reorganize everything into separate modules
 # figure out how to click a download for something that isn't an api
 

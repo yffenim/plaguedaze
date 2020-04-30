@@ -15,20 +15,29 @@ alert("be present");
 //   var click = window.document.getElementsByClassName("resource-url-analytics btn btn-primary dataset-download-link")[1].href
 // }
 
+var heatmapData = [
+  new google.maps.LatLng(43.6532, -79.3794),
+  new google.maps.LatLng(43.6532, -79.3783),
+  new google.maps.LatLng(43.6532, -79.3710),
+  new google.maps.LatLng(43.6532, -79.3801)
+];
+
+var covidToronto = new google.maps.LatLng(43.6532, -79.3832);
+
+map = new google.maps.Map(document.getElementById('map'), {
+  center: covidToronto,
+  zoom: 13,
+  mapTypeId: 'satellite'
+});
+
+var heatmap = new google.maps.visualization.HeatmapLayer({
+  data: heatmapData
+});
+heatmap.setMap(map);
 
 
 
 
-// google maps api
-  function initMap() {
-// The location of Uluru
-var uluru = {lat: -25.344, lng: 131.036};
-// The map, centered at Uluru
-var map = new google.maps.Map(
-    document.getElementById('map'), {zoom: 4, center: uluru});
-// The marker, positioned at Uluru
-var marker = new google.maps.Marker({position: uluru, map: map});
-}
 
 //
 
