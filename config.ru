@@ -1,12 +1,11 @@
 # $:.unshift File.dirname(__FILE__)
-
 require 'erb'
 require 'json'
 require 'rgeo/geo_json'
+require 'open-uri'
 require 'bundler'
 
 # to do's:
-# receive geoJson data
 # sort data to get coordinates only
 # put data coordinates on map regardless of sorting for now
 # extend heatmap range so that GTA is covered, not just Toronto or
@@ -17,12 +16,45 @@ require 'bundler'
 
 # reorganize everything into separate modules
 # figure out how to click a download for something that isn't an api
+#
+# str2 = '{"type":"Feature","geometry":{"type":"Point","coordinates":[2.5,4.0]},"properties":{"color":"red"}}'
+# feature = RGeo::GeoJSON.decode(str2)
+# feature['color']          # => 'red'
+# feature.geometry.as_text  # => "POINT (2.5 4.0)"
+#
+
+# Get geoJson data
+geoJson = open("https://data.ontario.ca/dataset/f4112442-bdc8-45d2-be3c-12efae72fb27/resource/4f39b02b-47fe-4e66-95b6-e6da879c6910/download/conposcovidloc.geojson").read
+# Parse geoJson data
+covid = RGeo::GeoJSON.decode(geoJson)
+puts one = covid[0].properties['Reporting_PHU_City']
+
+# puts one.geometry.as_text
+# puts one.class
+# puts one.methods.sort
+
+# write method to sort tho
+# def covidToronto(covid)
+  covidTO = []
+  covid.each do |c|
+    if c.properties['Reporting_PHU_City'].eql?("Toronto")
+      covidTO << c
+    end
+  end
+  # covidTO
+# end
+
+puts covidTO[0].properties['Reporting_PHU_City']
+
+# puts geoObj[1]
+# puts geoObj[2]
+
+# puts geoObj[0].geometry.as_text
 
 
-geoJson = File.read('test.geojson')
-geoObj = RGeo::GeoJSON.decode(geoJson)
-puts geoObj[0]
-puts geoObj[0].geometry.as_text
+# I want the objects that are from toronto
+# I want their geometry coordinates
+
 
 
 class Template
