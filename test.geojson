@@ -1,0 +1,87 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.37935801,
+          43.65659125
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "Case_AcquisitionInfo": "Information pending",
+        "Reporting_PHU_Postal_Code": "M5B 1W2",
+        "Client_Gender": "MALE",
+        "OBJECTID": 1,
+        "Accurate_Episode_Date": "2020-04-10T00:00:00",
+        "Outcome1": "Resolved",
+        "Reporting_PHU_City": "Toronto",
+        "Reporting_PHU_Latitude": 43.65659125,
+        "Reporting_PHU_Website": "www.toronto.ca/community-people/health-wellness-care/",
+        "Row_ID": 1,
+        "_id": 1,
+        "Age_Group": "60s",
+        "Reporting_PHU_Address": "277 Victoria Street, 5th Floor",
+        "Reporting_PHU_Longitude": -79.37935801,
+        "Reporting_PHU": "Toronto Public Health"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.37935801,
+          43.65659125
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "Case_AcquisitionInfo": "Travel-Related",
+        "Reporting_PHU_Postal_Code": "M5B 1W2",
+        "Client_Gender": "FEMALE",
+        "OBJECTID": 2,
+        "Accurate_Episode_Date": "2020-03-05T00:00:00",
+        "Outcome1": "Resolved",
+        "Reporting_PHU_City": "Toronto",
+        "Reporting_PHU_Latitude": 43.65659125,
+        "Reporting_PHU_Website": "www.toronto.ca/community-people/health-wellness-care/",
+        "Row_ID": 2,
+        "_id": 2,
+        "Age_Group": "60s",
+        "Reporting_PHU_Address": "277 Victoria Street, 5th Floor",
+        "Reporting_PHU_Longitude": -79.37935801,
+        "Reporting_PHU": "Toronto Public Health"
+      }
+    },
+    {
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -79.37935801,
+          43.65659125
+        ]
+      },
+      "type": "Feature",
+      "properties": {
+        "Case_AcquisitionInfo": "Contact of a confirmed case",
+        "Reporting_PHU_Postal_Code": "M5B 1W2",
+        "Client_Gender": "MALE",
+        "OBJECTID": 3,
+        "Accurate_Episode_Date": "2020-04-07T00:00:00",
+        "Outcome1": "Resolved",
+        "Reporting_PHU_City": "Toronto",
+        "Reporting_PHU_Latitude": 43.65659125,
+        "Reporting_PHU_Website": "www.toronto.ca/community-people/health-wellness-care/",
+        "Row_ID": 3,
+        "_id": 3,
+        "Age_Group": "20s",
+        "Reporting_PHU_Address": "277 Victoria Street, 5th Floor",
+        "Reporting_PHU_Longitude": -79.37935801,
+        "Reporting_PHU": "Toronto Public Health"
+      }
+    }
+  ],
+    "resource_id": "455fd63b-603d-4608-8216-7d8647f43350"
+}

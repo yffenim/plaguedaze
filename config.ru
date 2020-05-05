@@ -1,4 +1,4 @@
-$:.unshift File.dirname(__FILE__)
+# $:.unshift File.dirname(__FILE__)
 
 require 'erb'
 require 'json'
@@ -6,13 +6,24 @@ require 'rgeo/geo_json'
 require 'bundler'
 
 # to do's:
-# extent heatmap range so that GTA is covered, not just Toronto or
+# receive geoJson data
+# sort data to get coordinates only
+# put data coordinates on map regardless of sorting for now
+# extend heatmap range so that GTA is covered, not just Toronto or
 # iterate over geoJson data to get coordinates only for downtown Toronto
+# figure out how to hide damn api key
 # find a way to sort the data based on resolved, current, or pending cases
 # implement various sort/searching methods
 
 # reorganize everything into separate modules
 # figure out how to click a download for something that isn't an api
+
+
+geoJson = File.read('test.geojson')
+geoObj = RGeo::GeoJSON.decode(geoJson)
+puts geoObj[0]
+puts geoObj[0].geometry.as_text
+
 
 class Template
     attr_reader :google_api_key
@@ -34,12 +45,8 @@ class Template
     # @google_api_key = %(https://maps.googleapis.com/maps/api/js?key=#{key}&callback=initMap)
     # puts @google_api_key
 
+
 end
-
-
-
-
-# MapsApi.new(key)
 
 
 
