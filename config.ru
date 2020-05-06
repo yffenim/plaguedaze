@@ -23,21 +23,20 @@ require 'bundler'
 
 
 # Get geoJson data
-url = "https://data.ontario.ca/dataset/f4112442-bdc8-45d2-be3c-12efae72fb27/resource/4f39b02b-47fe-4e66-95b6-e6da879c6910/download/conposcovidloc.geojson"
-geoJson = open(url).read
-# # Parse geoJson data
-covid = RGeo::GeoJSON.decode(geoJson)
-#
-#
-# # write method to sort tho
-# # def covidToronto(covid)
-  covidTO = []
-  covid.each do |c|
-    if c.properties['Reporting_PHU_City'].eql?("Toronto")
-      covidTO << c
-    end
-  end
-  puts covidTO[0].geometry.as_text
+# url = "https://data.ontario.ca/dataset/f4112442-bdc8-45d2-be3c-12efae72fb27/resource/4f39b02b-47fe-4e66-95b6-e6da879c6910/download/conposcovidloc.geojson"
+# geoJson = open(url).read
+# # # Parse geoJson data
+# covid = RGeo::GeoJSON.decode(geoJson)
+# #
+# #
+# # # write method to sort tho
+# # # def covidToronto(covid)
+#   covidTO = []
+#   covid.each do |c|
+#     if c.properties['Reporting_PHU_City'].eql?("Toronto")
+#       covidTO << c
+#     end
+#   puts covidTO[0].geometry.as_text
 #   end
 #   # covidTO
 # # end
@@ -45,11 +44,11 @@ covid = RGeo::GeoJSON.decode(geoJson)
 #
 #
 # # get coordinates of all Toronto cases
-covidPoints = []
-covidTO.each do |property|
-  covidPoints << property.geometry.as_text
-end
-puts covidPoints[0]
+# covidPoints = []
+# covidTO.each do |property|
+#   covidPoints << property.geometry.as_text
+# end
+# # puts covidPoints[0]
 #
 
 
@@ -64,10 +63,6 @@ class Template
       attr_accessor :template_display
     end
 
-    # attr_accessor :google_api_key
-
-    @name = "John"
-    ERB.new("Hi, <%= @name %>!").result binding
   # trying to hide my api key in env but it is
   # still going to how up front end in browser?
     # key = File.read(".env")
@@ -104,7 +99,7 @@ def successful_get_request
   resp.status = 200
   resp.set_header('Content-Type', 'text/html')
   resp.write(Template::template_display)
-  p resp
+  puts resp
 
   resp.finish
 end
