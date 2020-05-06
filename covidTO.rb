@@ -1,5 +1,8 @@
-require 'rack'
 require 'erb'
+require 'json'
+require 'rgeo/geo_json'
+require 'open-uri'
+require 'bundler'
 
 class Template
 
@@ -12,45 +15,59 @@ class Template
 
   attr_reader :coordinates
 
-  def initialize
-    @covidpoints = []
+  def intialize
+    @coordinates = []
+    @test = 123
   end
 
   def retrieve_geoJson
-    url = "https://data.ontario.ca/dataset/f4112442-bdc8-45d2-be3c-12efae72fb27/resource/4f39b02b-47fe-4e66-95b6-e6da879c6910/download/conposcovidloc.geojson"
+    puts 'inside retrieve method'
+    url = 'https://data.ontario.ca/dataset/f4112442-bdc8-45d2-be3c-12efae72fb27/resource/4f39b02b-47fe-4e66-95b6-e6da879c6910/download/conposcovidloc.geojson'
+
+    puts 'before read method on url'
     geoJson = open(url).read
     # # Parse geoJson data
+    puts 'before decode method on geo'
     @covid = RGeo::GeoJSON.decode(geoJson)
+    puts 'before sorting into toronto'
+    # puts @covid[0]
+
+
+    # sort covid data into Toronto objects
+    @covidTO = []
+    @covid.map do |c|
+      if c.properties['Reporting_PHU_City'].eql?("Toronto")
+        @covidTO << c
+      end
+    end
+    # verify that the objects have been sorted:
+    puts @covidTO.class
+    puts @covidTO[1]
+    # sort covid data into coordinates
+
+# fix this method to access only the points of toronto obj array?
+# or should this be used later?
+    @covidTO.each do |property|
+      @coordinates << property.geometry.as_text
+    end
+    puts @coordinates[0]
+
+  end
+
+
+
+  def test_initialize
+    @test
   end
 
   def test_render
-    @covidpoints << 1
+    "Here is string inside test_render method"
   end
-#
-#   def sort_geoJson_to_coordinates(data)
-#     @covid.sort_to_covidTO
-#     test = @covid.sort_to_points_property[0]
-#   end
-#
-# # sorting methods for geoJson data
-#   def sort_to_covidTO(data)
-#     @covidTO = []
-#     data.each do |c|
-#       if c.properties['Reporting_PHU_City'].eql?("Toronto")
-#         @covidTO << c
-#       end
-#     end
-#     @covitTO
-#     # puts @covidTO[0].geometry.as_text
-#   end
-#
-#   def sort_to_points_property(data)
-#     @coordinates = []
-#     data.each do |property|
-#       @coordinates << property.geometry.as_text
-#     end
-#     @coordinates
-#   end
+
+  def test_coordinates
+    @coordinates[0]
+  end
+
 
   # bind and render the template
   # by moving .result(binding) here, does this mean I can
