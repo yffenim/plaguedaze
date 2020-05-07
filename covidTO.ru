@@ -19,7 +19,7 @@ require 'bundler'
 class Template
   include Singleton
 
-  attr_reader :coordinates
+  # attr_reader :coordinates
 
   # class object of template so that we can access api data
   @@template_display = ERB.new(File.read("template.html.erb"))
@@ -83,6 +83,11 @@ class Template
    def bind_and_render
      @@template_display.result(binding)
    end
+
+   def google_api_call
+     "<script type="+"'text/javascript'"+" src="+"'https://maps.googleapis.com/maps/api/js?key=" + KEY + "&libraries=visualization'"+">"+"</script>"
+   end
+
 end
 
 
@@ -113,7 +118,8 @@ def app_server
   routes(req).finish
   end
 
+# serve static resources
   Rack::Static.new(app, :urls => ["/static"])
 end
 
-Rack::Handler::WEBrick.run app_server
+run app_server
