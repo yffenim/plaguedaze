@@ -4,6 +4,17 @@ require 'rgeo/geo_json'
 require 'open-uri'
 require 'bundler'
 
+
+
+# do to (immediate list)
+# refactor retrieve geoJson code
+# figure out format google api wants
+# make api key hidden
+
+# to do (big list)
+# get rid of global
+
+
 class Template
 
   # @@template_display = ERB.new(File.read("template.html.erb"))
@@ -15,7 +26,8 @@ class Template
 
   attr_reader :coordinates
 
-  def intialize
+  def initialize
+    @covidTO = []
     @coordinates = []
     @test = 123
   end
@@ -34,7 +46,6 @@ class Template
 
 
     # sort covid data into Toronto objects
-    @covidTO = []
     @covid.map do |c|
       if c.properties['Reporting_PHU_City'].eql?("Toronto")
         @covidTO << c
@@ -43,8 +54,9 @@ class Template
     # verify that the objects have been sorted:
     puts @covidTO.class
     puts @covidTO[1]
-    # sort covid data into coordinates
 
+    # sort covid data into coordinates
+    # @coordinates = []
 # fix this method to access only the points of toronto obj array?
 # or should this be used later?
     @covidTO.each do |property|
