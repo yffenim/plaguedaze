@@ -21,3 +21,6 @@ puts covid[0].properties['Reporting_PHU_City']
 <h2> Testing coordinates:
    <%= test_coordinates %>
 </h2>
+
+<!-- <script src="static/scripts.js">
+</script> -->

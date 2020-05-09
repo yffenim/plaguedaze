@@ -8,7 +8,13 @@ require 'bundler'
 
 
 # do to (immediate list)
+
+# api work
+# sort through covid for unresolved cases only
 # refactor retrieve geoJson code
+# set up api env variable first
+# set it up with yaml file for security reasons
+
 # figure out format google api wants
 # make api key hidden
 
@@ -30,6 +36,10 @@ class Template
     @coordinates = []
     @test = 123
   end
+  #
+  # def testpoint
+  #   43.6532, -79.3801
+  # end
 
   # getting and sorting covid data
   def retrieve_geoJson
@@ -41,26 +51,26 @@ class Template
     # # Parse geoJson data
     puts 'before decode method on geo'
     @covid = RGeo::GeoJSON.decode(geoJson)
-    puts 'before sorting into toronto'
-    # puts @covid[0]
+    puts 'before sorting into toronto, here is first covid obj:'
+    puts @covid[0]
 
-
-    # sort covid data into Toronto objects
-    @covid.map do |c|
-      if c.properties['Reporting_PHU_City'].eql?("Toronto")
+    @covid.each do |c|
+      if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
         @covidTO << c
       end
     end
 
-    # verify that the objects have been sorted:
-    puts @covidTO.class
-    puts @covidTO[1]
+    puts 'after mapping by city'
+    # puts @covidTO[0]
+    # puts @covidTO.size
 
     # sort covid data into coordinates
     @covidTO.each do |property|
       @coordinates << property.geometry.as_text
     end
-    puts @coordinates[0]
+    #
+    # puts @coordinates[0]
+    # puts @coordinates.size
 
   end
 
@@ -85,7 +95,6 @@ class Template
    end
 
    def google_api_call
-     "<script type="+"'text/javascript'"+" src="+"'https://maps.googleapis.com/maps/api/js?key=" + KEY + "&libraries=visualization'"+">"+"</script>"
    end
 
 end
