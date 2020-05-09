@@ -15,7 +15,7 @@
     Click me to display Date and Time.</button>
     <div id="map"></div>
 
-    <!-- <h2>
+    <h2>
       <% retrieve_geoJson %>
     </h2>
 
@@ -32,9 +32,9 @@
        <%= test_coordinates %>
     </h2>
 
-    <h2> Testing testpoint:
-       <%# testpoint %>
-    </h2> -->
+    <h2> Testing points:
+       <%= pointa %>
+    </h2>
 
 
     <%= google_api_call %>
@@ -43,10 +43,10 @@
       alert("be present");
 
       var heatmapData = [
-        new google.maps.LatLng(43.6532, -79.3794),
-        new google.maps.LatLng(43.6532, -79.3783),
-        new google.maps.LatLng(43.6532, -79.3710)
-        // new google.maps.LatLng(<%# testpoint %>)
+        // new google.maps.LatLng(43.6532, -79.3794),
+        // new google.maps.LatLng(43.6532, -79.3783),
+        // new google.maps.LatLng(43.6532, -79.3710),
+        new google.maps.LatLng(<%= pointx %>, <%= pointy %>)
       ];
 
       var covidToronto = new google.maps.LatLng(43.6532, -79.3832);

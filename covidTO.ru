@@ -9,9 +9,7 @@ require 'bundler'
 
 # do to (immediate list)
 
-# api work
-# sort through covid for unresolved cases only
-# refactor retrieve geoJson code
+# finish logic for getting coordinates
 # set up api env variable first
 # set it up with yaml file for security reasons
 
@@ -86,7 +84,34 @@ class Template
 
   def test_coordinates
     @coordinates[0]
+    @coordinates[0].class
   end
+
+
+# do this for each coordinate in the array
+
+# get the coordinate as an array
+  def coordinate_arr(str)
+    arr = str.chars
+  end
+
+# get each point from a coordinate
+  def pointx(arr)
+    point = []
+    for i in 7..14
+       point << arr[i]
+    end
+    point.join("")
+  end
+
+  def pointy(arr)
+    point = []
+    for i in 20..26
+       point << arr[i]
+    end
+    point.join("")
+  end
+
 
 # bind and render method for template class obj
 # for when it is initialized later in response body
