@@ -32,9 +32,6 @@
        <%= test_coordinates %>
     </h2>
 
-    <h2> Testing points:
-       <%= pointa %>
-    </h2>
 
 
     <%= google_api_call %>
@@ -45,8 +42,8 @@
       var heatmapData = [
         // new google.maps.LatLng(43.6532, -79.3794),
         // new google.maps.LatLng(43.6532, -79.3783),
-        // new google.maps.LatLng(43.6532, -79.3710),
-        new google.maps.LatLng(<%= pointx %>, <%= pointy %>)
+        // new google.maps.LatLng(43.6532, -79.3710)
+        new google.maps.LatLng(<%= @coordinates[0].cpointx %>, <%= @points[0].pointy %>)
       ];
 
       var covidToronto = new google.maps.LatLng(43.6532, -79.3832);

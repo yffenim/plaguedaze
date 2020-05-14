@@ -32,6 +32,7 @@ class Template
   def initialize
     @covidTO = []
     @coordinates = []
+    @points = []
     @test = 123
   end
   #
@@ -59,20 +60,37 @@ class Template
     end
 
     puts 'after mapping by city'
-    # puts @covidTO[0]
-    # puts @covidTO.size
 
     # sort covid data into coordinates
     @covidTO.each do |property|
       @coordinates << property.geometry.as_text
     end
-    #
-    # puts @coordinates[0]
-    # puts @coordinates.size
 
+    puts 'after getting coordinates'
+    puts @coordinates[0..5]
   end
 
+  # for each coordinate, find x,y
+  # then put them back into an array of coordinates
+  # get each point from a coordinate
 
+  def pointx(arr)
+    point = arr.chars
+    pointx = []
+    for i in 7..14
+       point << point[i]
+    end
+    pointx.join("")
+  end
+
+  def pointy(arr)
+    point = arr.chars
+    pointy = []
+    for i in 20..26
+       point << point[i]
+    end
+    pointy.join("")
+  end
 
   def test_initialize
     @test
@@ -88,29 +106,7 @@ class Template
   end
 
 
-# do this for each coordinate in the array
 
-# get the coordinate as an array
-  def coordinate_arr(str)
-    arr = str.chars
-  end
-
-# get each point from a coordinate
-  def pointx(arr)
-    point = []
-    for i in 7..14
-       point << arr[i]
-    end
-    point.join("")
-  end
-
-  def pointy(arr)
-    point = []
-    for i in 20..26
-       point << arr[i]
-    end
-    point.join("")
-  end
 
 
 # bind and render method for template class obj

@@ -24,3 +24,4 @@ puts covid[0].properties['Reporting_PHU_City']
 
 <!-- <script src="static/scripts.js">
 </script> -->
+new google.maps.LatLng(<%= @coordinates[0].pointx %>, <%= @points[0].pointy %>)
