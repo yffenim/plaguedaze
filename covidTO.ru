@@ -32,7 +32,8 @@ class Template
   def initialize
     @covidTO = []
     @coordinates = []
-    @points = []
+    @pointx = []
+    @pointy = []
     @test = 123
   end
   #
@@ -51,15 +52,20 @@ class Template
     puts 'before decode method on geo'
     @covid = RGeo::GeoJSON.decode(geoJson)
     puts 'before sorting into toronto, here is first covid obj:'
-    puts @covid[0]
+    puts @covid[0..5]
 
     @covid.each do |c|
-      if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
+      if c.properties['Reporting_PHU_City'].eql?("Toronto") || c.properties['Reporting_PHU_City'].eql?("Mississauga") && c.properties['Outcome1'].eql?('Not Resolved')
         @covidTO << c
       end
     end
 
     puts 'after mapping by city'
+    puts @covidTO.size
+
+    # dropping data because just don't need this amount
+    # maybe make this into a map option later?
+    @covidTO = @covidTO.drop(7000)
 
     # sort covid data into coordinates
     @covidTO.each do |property|
@@ -67,29 +73,35 @@ class Template
     end
 
     puts 'after getting coordinates'
-    puts @coordinates[0..5]
+    puts @coordinates.size
+
+    @pointx = []
+    @pointy = []
+
+    @coordinates.each do |obj|
+      for i in 7..14
+        @pointx << obj.chars[i]
+        @pointx.join("")
+      end
+
+      for i in 20..26
+        @pointy << obj.chars[i]
+        @pointy.join("")
+      end
+    end
+
+    puts 'after getting points'
+    puts @pointx[0..5]
+    puts @pointy[0..10]
+
   end
 
-  # for each coordinate, find x,y
-  # then put them back into an array of coordinates
-  # get each point from a coordinate
-
-  def pointx(arr)
-    point = arr.chars
-    pointx = []
-    for i in 7..14
-       point << point[i]
-    end
-    pointx.join("")
+  def pointx
+    @pointx
   end
 
-  def pointy(arr)
-    point = arr.chars
-    pointy = []
-    for i in 20..26
-       point << point[i]
-    end
-    pointy.join("")
+  def pointy
+    @pointy
   end
 
   def test_initialize
