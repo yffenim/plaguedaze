@@ -40,10 +40,9 @@
       alert("be present");
 
       var heatmapData = [
-        // new google.maps.LatLng(43.6532, -79.3794),
-        // new google.maps.LatLng(43.6532, -79.3783),
-        // new google.maps.LatLng(43.6532, -79.3710)
-        new google.maps.LatLng(<%= pointx[0] %>, <%= pointy[0] %>)
+        new google.maps.LatLng(43.6532, -79.3794),
+        new google.maps.LatLng(43.6532, -79.3783),
+        new google.maps.LatLng(43.6532, -79.3710)
       ];
 
       var covidToronto = new google.maps.LatLng(43.6532, -79.3832);
@@ -59,5 +58,6 @@
       });
       heatmap.setMap(map);
     </script>
+
   </body>
 </html>

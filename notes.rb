@@ -24,4 +24,23 @@ puts covid[0].properties['Reporting_PHU_City']
 
 <!-- <script src="static/scripts.js">
 </script> -->
-new google.maps.LatLng(<%= @coordinates[0].pointx %>, <%= @points[0].pointy %>)
+
+
+@pointx = []
+@pointy = []
+
+@coordinates.each do |obj|
+  obj = obj.chars
+  for i in 7..14
+    @pointx << obj[i]
+    @pointx.join("")
+  end
+
+  for i in 20..26
+    @pointy << obj[i]
+    @pointy.join("")
+  end
+end
+
+puts 'after getting points'
+puts @pointx

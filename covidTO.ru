@@ -9,15 +9,17 @@ require 'bundler'
 
 # do to (immediate list)
 
-# finish logic for getting coordinates
+# use openmaps api to get coordinates:
+# - loop over geoJson data to extract addresses for Toronto cases
+# - send them to openmaps
+# - only do this for the most recently 2 weeks of cases
+# - put coordinates into google maps api
+
 # set up api env variable first
 # set it up with yaml file for security reasons
 
 # figure out format google api wants
 # make api key hidden
-
-# to do (big list)
-# get rid of global
 
 
 class Template
@@ -74,25 +76,6 @@ class Template
 
     puts 'after getting coordinates'
     puts @coordinates.size
-
-    @pointx = []
-    @pointy = []
-
-    @coordinates.each do |obj|
-      for i in 7..14
-        @pointx << obj.chars[i]
-        @pointx.join("")
-      end
-
-      for i in 20..26
-        @pointy << obj.chars[i]
-        @pointy.join("")
-      end
-    end
-
-    puts 'after getting points'
-    puts @pointx[0..5]
-    puts @pointy[0..10]
 
   end
 
