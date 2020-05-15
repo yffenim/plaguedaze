@@ -33,6 +33,7 @@ class Template
   # initializing empty arrays for data to play with
   def initialize
     @covidTO = []
+    @addresses = []
     @coordinates = []
     @pointx = []
     @pointy = []
@@ -54,28 +55,31 @@ class Template
     puts 'before decode method on geo'
     @covid = RGeo::GeoJSON.decode(geoJson)
     puts 'before sorting into toronto, here is first covid obj:'
-    puts @covid[0..5]
+    # puts @covid[0..5]
 
+    # puts @covid.size
+    # only use last 50 cases for now
+    @covid = @covid[-50..-1]
+    # puts @covid.size
+
+    # sort data by Toronto + unresolved cases
     @covid.each do |c|
-      if c.properties['Reporting_PHU_City'].eql?("Toronto") || c.properties['Reporting_PHU_City'].eql?("Mississauga") && c.properties['Outcome1'].eql?('Not Resolved')
+      if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
         @covidTO << c
       end
     end
 
     puts 'after mapping by city'
-    puts @covidTO.size
-
-    # dropping data because just don't need this amount
-    # maybe make this into a map option later?
-    @covidTO = @covidTO.drop(7000)
+    # only use 20 cases for this iteration of app
+    @covidTO =  @covidTO[-20..-1]
 
     # sort covid data into coordinates
-    @covidTO.each do |property|
-      @coordinates << property.geometry.as_text
-    end
-
-    puts 'after getting coordinates'
-    puts @coordinates.size
+    # @covidTO.each do |property|
+    #   @coordinates << property.geometry.as_text
+    # end
+    #
+    # puts 'after getting coordinates'
+    # puts @coordinates.size
 
   end
 
