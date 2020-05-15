@@ -16,10 +16,11 @@ alert("be present");
 // }
 
 var heatmapData = [
-  new google.maps.LatLng(43.6532, -79.3794),
-  new google.maps.LatLng(43.6532, -79.3783),
-  new google.maps.LatLng(43.6532, -79.3710),
-  new google.maps.LatLng(43.6532, -79.3801)
+  new google.maps.LatLng(43.6565, -79.3793)
+  // new google.maps.LatLng(45.3456, -75.7639),
+  // new google.maps.LatLng(44.0480, -79.4802),
+  // new google.maps.LatLng(42.9814, -81.2540),
+  // new google.maps.LatLng(43.8986, -78.9403)
 ];
 
 var covidToronto = new google.maps.LatLng(43.6532, -79.3832);

@@ -28,12 +28,6 @@
        <%= test_render %>
     </h2>
 
-    <h2> Testing coordinates:
-       <%= test_coordinates %>
-    </h2>
-
-
-
     <%= google_api_call %>
 
     <script>
@@ -49,7 +43,7 @@
 
       map = new google.maps.Map(document.getElementById('map'), {
         center: covidToronto,
-        zoom: 13,
+        zoom: 10,
         mapTypeId: 'satellite'
       });
 

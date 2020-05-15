@@ -6,8 +6,12 @@ require 'open-uri'
 require 'singleton'
 require 'bundler'
 
+# do i need a require bundler and what is it actually doing?
+
 
 # do to (immediate list)
+
+
 
 # use openmaps api to get coordinates:
 # - loop over geoJson data to extract addresses for Toronto cases
@@ -33,10 +37,7 @@ class Template
   # initializing empty arrays for data to play with
   def initialize
     @covidTO = []
-    @addresses = []
-    @coordinates = []
-    @pointx = []
-    @pointy = []
+    @cities = []
     @test = 123
   end
   #
@@ -54,42 +55,54 @@ class Template
     # # Parse geoJson data
     puts 'before decode method on geo'
     @covid = RGeo::GeoJSON.decode(geoJson)
-    puts 'before sorting into toronto, here is first covid obj:'
-    # puts @covid[0..5]
 
-    # puts @covid.size
-    # only use last 50 cases for now
-    @covid = @covid[-50..-1]
-    # puts @covid.size
+    puts 'before selecting'
+    puts @covid[0]
+    puts @covid.size
 
-    # sort data by Toronto + unresolved cases
+
+    # sort for an array of cities
+    unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
+    unique_cities.each do |uniq|
+      @cities << uniq.properties['Reporting_PHU_City']
+    end
+    # puts @cities
+
+    # initialize an array for each city
+    # count = 0
+    # while count < @cities.size  do
+    #   @name = @cities[count]
+    #   @name = Array.new
+    #   puts @name
+    #   count +=1
+    # end
+
+
+    puts 'before sorting by toronto'
+
     @covid.each do |c|
       if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
-        @covidTO << c
+        @Toronto << c
       end
     end
 
-    puts 'after mapping by city'
-    # only use 20 cases for this iteration of app
-    @covidTO =  @covidTO[-20..-1]
+    puts @Toronto.size
+    # sort data by Toronto + unresolved cases
+    # @covid.each do |c|
+    #   if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
+    #     @covidTO << c
+    #   end
+    # end
+    #
 
     # sort covid data into coordinates
     # @covidTO.each do |property|
     #   @coordinates << property.geometry.as_text
     # end
-    #
-    # puts 'after getting coordinates'
-    # puts @coordinates.size
 
   end
 
-  def pointx
-    @pointx
-  end
 
-  def pointy
-    @pointy
-  end
 
   def test_initialize
     @test
@@ -98,14 +111,6 @@ class Template
   def test_render
     "Here is string inside test_render method"
   end
-
-  def test_coordinates
-    @coordinates[0]
-    @coordinates[0].class
-  end
-
-
-
 
 
 # bind and render method for template class obj
