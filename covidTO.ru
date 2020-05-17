@@ -53,40 +53,47 @@ class Template
     puts @covid.size
 
 
+    # to do:
+    # 1. go through original data set and find the total cases per unique city
+    # 2. create a hash containing each unique city as key and value as the total cases
+
+
+    # unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
+    # unique_cities.each do |uniq|
+    #   @cities << uniq.properties['Reporting_PHU_City']
+    # end
+    #
+
     # create a hash of all cities to store total covid cases
-    unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
-    unique_cities.each do |uniq|
-      @cities << uniq.properties['Reporting_PHU_City']
-    end
-
-    city_hash = Hash.new
-
-    @cities.map do |c|
-      city_hash[c] = 0
-    end
-
-    # i want to write it all at once:
-    unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
+    # unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
     # now i have an array of geoJson objects of unique cities and i want to create a hash
     # where the key is the city name and the value is the total count of cases
 
+    # city_hash = Hash.new
+    #
+    # unique_cities.each do |city_name|
+    # # I need to count the total unresolved cases of each unique city
+    # # this means I need the original dataset prior to it being sorted?
+    #
+    #   city_cases = city_name.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
+    #
+    #   city_hash[city_name.properties['Reporting_PHU_City']] = 0
+    # end
+    # puts city_hash
 
 
+    # puts 'before sorting by toronto'
 
-
-
-    puts 'before sorting by toronto'
-
-    @Toronto = []
-    @covid.each do |c|
-      if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
-        @Toronto << c
-      end
-    end
-
-    # save covid cases into each city's hash value
-    city_hash['Toronto'] = city_hash['Toronto'] + @Toronto.size
-    puts city_hash['Toronto']
+    # @Toronto = []
+    # @covid.each do |c|
+    #   if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
+    #     @Toronto << c
+    #   end
+    # end
+    #
+    # # save covid cases into each city's hash value
+    # city_hash['Toronto'] = city_hash['Toronto'] + @Toronto.size
+    # puts city_hash['Toronto']
 
     # puts @Toronto.size
     # sort data by Toronto + unresolved cases
