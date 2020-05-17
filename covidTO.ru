@@ -11,8 +11,6 @@ require 'bundler'
 
 # do to (immediate list)
 
-
-
 # use openmaps api to get coordinates:
 # - loop over geoJson data to extract addresses for Toronto cases
 # - send them to openmaps
@@ -29,8 +27,6 @@ require 'bundler'
 class Template
   include Singleton
 
-  # attr_reader :coordinates
-
   # class object of template so that we can access api data
   @@template_display = ERB.new(File.read("template.html.erb"))
 
@@ -40,10 +36,6 @@ class Template
     @cities = []
     @test = 123
   end
-  #
-  # def testpoint
-  #   43.6532, -79.3801
-  # end
 
   # getting and sorting covid data
   def retrieve_geoJson
@@ -61,32 +53,42 @@ class Template
     puts @covid.size
 
 
-    # sort for an array of cities
+    # create a hash of all cities to store total covid cases
     unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
     unique_cities.each do |uniq|
       @cities << uniq.properties['Reporting_PHU_City']
     end
-    # puts @cities
 
-    # initialize an array for each city
-    # count = 0
-    # while count < @cities.size  do
-    #   @name = @cities[count]
-    #   @name = Array.new
-    #   puts @name
-    #   count +=1
-    # end
+    city_hash = Hash.new
+
+    @cities.map do |c|
+      city_hash[c] = 0
+    end
+
+    # i want to write it all at once:
+    unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
+    # now i have an array of geoJson objects of unique cities and i want to create a hash
+    # where the key is the city name and the value is the total count of cases
+
+
+
+
 
 
     puts 'before sorting by toronto'
 
+    @Toronto = []
     @covid.each do |c|
       if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
         @Toronto << c
       end
     end
 
-    puts @Toronto.size
+    # save covid cases into each city's hash value
+    city_hash['Toronto'] = city_hash['Toronto'] + @Toronto.size
+    puts city_hash['Toronto']
+
+    # puts @Toronto.size
     # sort data by Toronto + unresolved cases
     # @covid.each do |c|
     #   if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
