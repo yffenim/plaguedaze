@@ -4,12 +4,15 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" type="text/css" href="static/stylesheet.css" media="screen"/>
+
   </head>
   <body>
     <h1>HTML template page is rendered</h1>
 
+ <!-- *** google heat map *** -->
+
     <div id="map">
-      <% retrieve_geoJson %>
+      <%# retrieve_geoJson %>
       <%= google_api_call %>
     </div>
 
@@ -35,5 +38,52 @@
       });
       heatmap.setMap(map);
     </script>
+
+<!-- *** amCharts Pie Chart *** -->
+    <script src="//www.amcharts.com/lib/4/core.js"></script>
+    <script src="//www.amcharts.com/lib/4/charts.js"></script>
+
+    <div id="chartdiv">
+    </div>
+
+    <script>
+    var chart = am4core.create("chartdiv", am4charts.PieChart);
+
+
+    chart.data = [{
+      "country": "Lithuania",
+      "litres": 501.9
+    }, {
+      "country": "Czech Republic",
+      "litres": 301.9
+    }, {
+      "country": "Ireland",
+      "litres": 201.1
+    }, {
+      "country": "Germany",
+      "litres": 165.8
+    }, {
+      "country": "Australia",
+      "litres": 139.9
+    }, {
+      "country": "Austria",
+      "litres": 128.3
+    }, {
+      "country": "UK",
+      "litres": 99
+    }, {
+      "country": "Belgium",
+      "litres": 60
+    }, {
+      "country": "The Netherlands",
+      "litres": 50
+    }];
+    
+    var pieSeries = chart.series.push(new am4charts.PieSeries());
+    pieSeries.dataFields.value = "litres";
+    pieSeries.dataFields.category = "country";
+
+    </script>
+
   </body>
 </html>

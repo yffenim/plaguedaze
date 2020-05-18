@@ -1,19 +1,6 @@
 alert("be present");
 
-// document.addEventListener("DOMContentLoaded", function(event) {
-//
-//   document.getElementById("click").onclick = function() {clickFunction()};
-//   function clickFunction() {
-//     document.getElementById("show-text").innerHTML = "RENDER TEXT HERE";
-//   };
-
-// get data from toronto site (not an api)
-
-// var request = function clickFunction() {
-//   var url =  "https://data.ontario.ca/dataset/confirmed-positive-cases-of-covid-19-in-ontario";
-//   window.location.href = url
-//   var click = window.document.getElementsByClassName("resource-url-analytics btn btn-primary dataset-download-link")[1].href
-// }
+// *** google heat map ***
 
 var heatmapData = [
   new google.maps.LatLng(43.6565, -79.3793)
@@ -36,14 +23,7 @@ var heatmap = new google.maps.visualization.HeatmapLayer({
 });
 heatmap.setMap(map);
 
+// *** amCharts pie chart ***
 
-
-
-
-//
-
-// go to the ontario covid page and
-// bring back the inner html of the set_header
-// and display it when page loads
 
 // });
