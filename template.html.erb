@@ -9,81 +9,102 @@
   <body>
     <h1>HTML template page is rendered</h1>
 
- <!-- *** google heat map *** -->
-
-    <div id="map">
-      <%# retrieve_geoJson %>
-      <%= google_api_call %>
-    </div>
-
-    <script>
-      alert("be present");
-
-      var heatmapData = [
-        new google.maps.LatLng(43.6532, -79.3794),
-        new google.maps.LatLng(43.6532, -79.3783),
-        new google.maps.LatLng(43.6532, -79.3710)
-      ];
-
-      var covidToronto = new google.maps.LatLng(43.6532, -79.3832);
-
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: covidToronto,
-        zoom: 13,
-        mapTypeId: 'satellite'
-      });
-
-      var heatmap = new google.maps.visualization.HeatmapLayer({
-        data: heatmapData
-      });
-      heatmap.setMap(map);
-    </script>
 
 <!-- *** amCharts Pie Chart *** -->
     <script src="//www.amcharts.com/lib/4/core.js"></script>
     <script src="//www.amcharts.com/lib/4/charts.js"></script>
+    <script src="//www.amcharts.com/lib/4/themes/animated.js"></script>
 
     <div id="chartdiv">
     </div>
 
     <script>
+    am4core.useTheme(am4themes_animated);
     var chart = am4core.create("chartdiv", am4charts.PieChart);
 
-
     chart.data = [{
-      "country": "Lithuania",
-      "litres": 501.9
+      "city": "London",
+      "cases": 501.9
     }, {
-      "country": "Czech Republic",
-      "litres": 301.9
+      "city": "Missussauga",
+      "cases": 301.9
     }, {
-      "country": "Ireland",
-      "litres": 201.1
+      "city": "Waterloo",
+      "cases": 201.1
     }, {
-      "country": "Germany",
-      "litres": 165.8
+      "city": "Hamilton",
+      "cases": 165.8
     }, {
-      "country": "Australia",
-      "litres": 139.9
+      "city": "Newmarket",
+      "cases": 139.9
     }, {
-      "country": "Austria",
-      "litres": 128.3
+      "city": "Ottawa",
+      "cases": 128.3
     }, {
-      "country": "UK",
-      "litres": 99
+      "city": "Chatham",
+      "cases": 99
     }, {
-      "country": "Belgium",
-      "litres": 60
+      "city": "Whitby",
+      "cases": 60
     }, {
-      "country": "The Netherlands",
-      "litres": 50
+      "city": "Windor",
+      "cases": 50
     }];
-    
+
     var pieSeries = chart.series.push(new am4charts.PieSeries());
-    pieSeries.dataFields.value = "litres";
-    pieSeries.dataFields.category = "country";
+    pieSeries.dataFields.value = "cases";
+    pieSeries.dataFields.category = "city";
+
+// add inner radius
+    chart.innerRadius = am4core.percent(40);
+    pieSeries.slices.template.stroke = am4core.color("#4a2abb");
+    pieSeries.slices.template.strokeWidth = 2;
+    pieSeries.slices.template.strokeOpacity = 1;
+
+
+  // disable growing hover and add fill opacity
+    pieSeries.slices.template.fillOpacity = 1;
+
+    var hs = pieSeries.slices.template.states.getKey("hover");
+    hs.properties.scale = 1;
+    hs.properties.fillOpacity = 0.5;
 
     </script>
+
+
+
+
+     <!-- *** google heat map *** -->
+
+        <div id="map">
+          <% retrieve_geoJson %>
+          <%= google_api_call %>
+        </div>
+
+        <script>
+          alert("be present");
+
+          var heatmapData = [
+            new google.maps.LatLng(43.6532, -79.3794),
+            new google.maps.LatLng(43.6532, -79.3783),
+            new google.maps.LatLng(43.6532, -79.3710)
+          ];
+
+          var covidToronto = new google.maps.LatLng(43.6532, -79.3832);
+
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: covidToronto,
+            zoom: 13,
+            mapTypeId: 'satellite'
+          });
+
+          var heatmap = new google.maps.visualization.HeatmapLayer({
+            data: heatmapData
+          });
+          heatmap.setMap(map);
+        </script>
+
+        
 
   </body>
 </html>

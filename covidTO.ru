@@ -9,21 +9,6 @@ require 'bundler'
 # do i need a require bundler and what is it actually doing?
 
 
-# do to (immediate list)
-
-# use openmaps api to get coordinates:
-# - loop over geoJson data to extract addresses for Toronto cases
-# - send them to openmaps
-# - only do this for the most recently 2 weeks of cases
-# - put coordinates into google maps api
-
-# set up api env variable first
-# set it up with yaml file for security reasons
-
-# figure out format google api wants
-# make api key hidden
-
-
 class Template
   include Singleton
 
@@ -53,43 +38,63 @@ class Template
     # puts @covid.size
 
 
-    # to do:
-    # 1. go through original data set and find the total cases per unique city
-    # 2. create a hash containing each unique city as key and value as the total cases
+# New Version of App based on new data:
+
+# Part 1: Giant amChart of all data
+# 1. go through data, find total cases per city
+# 2. save findings into hash of cities => cases
+# 3. make amChart all pretty
 
 
+# Part 2: Click on your city to render a google heat map of cases there
+# (have this as a pop-up?)
+# have this randomly generated but accurately reflects how many cases there are
+
+
+# Part 3: security
+# 1. figure out env/yaml for api
+# 2. maybe implement a login & auth
+# 3. something about cookies?
+
+
+
+# this is old code:
     # unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
     # unique_cities.each do |uniq|
     #   @cities << uniq.properties['Reporting_PHU_City']
     # end
     #
+    # puts @cities
 
-    # create a hash of all cities to store total covid cases
-    # unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
-    # now i have an array of geoJson objects of unique cities and i want to create a hash
-    # where the key is the city name and the value is the total count of cases
+# this is where you are:
 
-    # city_hash = Hash.new
-    #
-    # unique_cities.each do |city_name|
-    # # I need to count the total unresolved cases of each unique city
-    # # this means I need the original dataset prior to it being sorted?
-    #
-    #   city_cases = city_name.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
-    #
-    #   city_hash[city_name.properties['Reporting_PHU_City']] = 0
-    # end
-    # puts city_hash
+    # create a new hash to contain city => cases data
+    city_hash = Hash.new
+    # for each unique city from @covid dataset, set its value to 0 in the hash
+    unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
+
+    unique_cities.each do |city_name|
+      city_hash[city_name.properties['Reporting_PHU_City']] = 0
+    end
+
+    puts 'after setting city hash key values to 0'
+    puts city_hash["Toronto"]
 
 
-    # puts 'before sorting by toronto'
+# find cases in Toronto
+    toronto_cases = []
+    @covid.each do |c|
+      if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
+        toronto_cases << c
+      end
+    end
 
-    # @Toronto = []
-    # @covid.each do |c|
-    #   if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
-    #     @Toronto << c
-    #   end
-    # end
+    city_hash["Toronto"] = city_hash["Toronto"] + toronto_cases.count
+
+    puts 'after adding total cases to Toronto'
+    puts city_hash["Toronto"]
+
+
     #
     # # save covid cases into each city's hash value
     # city_hash['Toronto'] = city_hash['Toronto'] + @Toronto.size
@@ -119,6 +124,7 @@ class Template
    end
 
    def google_api_call
+ "<script type="+"'text/javascript'"+" src="+"'https://maps.googleapis.com/maps/api/js?key=AIzaSyDJbb4L0Z6ApyrHU5Vvfxz89qMwO8EiLEQ&libraries=visualization'"+">"+"</script>"
    end
 
 end
