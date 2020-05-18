@@ -44,3 +44,11 @@ end
 
 puts 'after getting points'
 puts @pointx
+
+
+<button id="click" onclick="clickFunction()">Click to download GeoJson</button>
+
+<button type="button"
+onclick="document.getElementById('click').innerHTML = Date()">
+Click me to display Date and Time.</button>
+<div id="map"></div>

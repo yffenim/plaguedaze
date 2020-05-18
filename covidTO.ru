@@ -48,9 +48,9 @@ class Template
     puts 'before decode method on geo'
     @covid = RGeo::GeoJSON.decode(geoJson)
 
-    puts 'before selecting'
-    puts @covid[0]
-    puts @covid.size
+    # puts 'before selecting'
+    # puts @covid[0]
+    # puts @covid.size
 
 
     # to do:
@@ -109,16 +109,6 @@ class Template
     #   @coordinates << property.geometry.as_text
     # end
 
-  end
-
-
-
-  def test_initialize
-    @test
-  end
-
-  def test_render
-    "Here is string inside test_render method"
   end
 
 

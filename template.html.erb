@@ -8,27 +8,10 @@
   <body>
     <h1>HTML template page is rendered</h1>
 
-    <button id="click" onclick="clickFunction()">Click to download GeoJson</button>
-
-    <button type="button"
-    onclick="document.getElementById('click').innerHTML = Date()">
-    Click me to display Date and Time.</button>
-    <div id="map"></div>
-
-    <h2>
+    <div id="map">
       <% retrieve_geoJson %>
-    </h2>
-
-
-    <h2> Testing initialize:
-       <%= test_initialize %>
-    </h2>
-
-    <h2> Testing render method:
-       <%= test_render %>
-    </h2>
-
-    <%= google_api_call %>
+      <%= google_api_call %>
+    </div>
 
     <script>
       alert("be present");
@@ -52,6 +35,5 @@
       });
       heatmap.setMap(map);
     </script>
-
   </body>
 </html>
