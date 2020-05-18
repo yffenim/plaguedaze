@@ -52,3 +52,57 @@ puts @pointx
 onclick="document.getElementById('click').innerHTML = Date()">
 Click me to display Date and Time.</button>
 <div id="map"></div>
+
+
+# this is old code:
+    # unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
+    # unique_cities.each do |uniq|
+    #   @cities << uniq.properties['Reporting_PHU_City']
+    # end
+    #
+    # puts @cities
+
+
+# find cases in Toronto
+    # toronto_cases = []
+    # @covid.each do |c|
+    #   if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
+    #     toronto_cases << c
+    #   end
+    # end
+    #
+    # @covid.each do |c|
+    #   if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
+    #     toronto_cases << c
+    #   end
+    # end
+    #
+    #
+    # def match_city(city_string)
+    #   geo_object.properties['Reporting_PHU_City'].eql?("Toronto")
+    # end
+
+    # city_hash["Toronto"] = city_hash["Toronto"] + toronto_cases.count
+    #
+    # puts 'after adding total cases to Toronto'
+    # puts city_hash["Toronto"]
+
+
+    #
+    # # save covid cases into each city's hash value
+    # city_hash['Toronto'] = city_hash['Toronto'] + @Toronto.size
+    # puts city_hash['Toronto']
+
+    # puts @Toronto.size
+    # sort data by Toronto + unresolved cases
+    # @covid.each do |c|
+    #   if c.properties['Reporting_PHU_City'].eql?("Toronto") && c.properties['Outcome1'].eql?('Not Resolved')
+    #     @covidTO << c
+    #   end
+    # end
+    #
+
+    # sort covid data into coordinates
+    # @covidTO.each do |property|
+    #   @coordinates << property.geometry.as_text
+    # end
