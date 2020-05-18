@@ -59,20 +59,7 @@ class Template
 
 
 # this is where you are:
-
-    # create a new hash to contain city => cases data
-    city_hash = Hash.new
-    # for each unique city from @covid dataset, set its value to 0 in the hash
-    unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
-
-    unique_cities.each do |city_name|
-      city_hash[city_name.properties['Reporting_PHU_City']] = 0
-    end
-
-    puts 'after setting city hash key values to 0'
-    puts city_hash["Toronto"]
-
-    # method to find total case count per unique city
+# method to find total case count per unique city
     def find_case_count(city_string)
       cases = []
       @covid.each do |c|
@@ -83,10 +70,23 @@ class Template
       cases.count
     end
 
-    puts 'after find_cases method'
-    puts find_case_count("Toronto")
+  # create a new hash to contain city => cases data
+  city_hash = Hash.new
+  # for each unique city from @covid dataset, set its value to 0 in the hash
+  unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
 
+  unique_cities.each do |city_name|
+    city_hash[city_name.properties['Reporting_PHU_City']] = find_case_count(city_name.properties['Reporting_PHU_City'])
   end
+
+  puts 'after setting city hash key values to method to count case totals'
+  puts city_hash["Toronto"]
+  puts city_hash["Oakville"]
+  puts city_hash["Newmarket"]
+  puts city_hash["London"]
+
+
+end
 
 
 # bind and render method for template class obj
@@ -96,7 +96,6 @@ class Template
    end
 
    def google_api_call
- "<script type="+"'text/javascript'"+" src="+"'https://maps.googleapis.com/maps/api/js?key=AIzaSyDJbb4L0Z6ApyrHU5Vvfxz89qMwO8EiLEQ&libraries=visualization'"+">"+"</script>"
    end
 
 end
