@@ -11,7 +11,7 @@
 
 <script>
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/', true);
+    xhr.open('GET', '/json', true);
 
     // Track the state changes of the request.
     xhr.onreadystatechange = function () {
@@ -99,7 +99,7 @@
      <!-- *** google heat map *** -->
 
         <div id="map">
-          <% retrieve_geoJson %>
+          <%# retrieve_geoJson %>
           <%= google_api_call %>
         </div>
 

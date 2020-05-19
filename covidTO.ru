@@ -7,43 +7,6 @@ require 'singleton'
 require 'bundler'
 
 # do i need a require bundler and what is it actually doing?
-
-
-class Template
-  include Singleton
-
-  # class object of template so that we can access api data
-  @@template_display = ERB.new(File.read("template.html.erb"))
-
-  # initializing empty arrays for data to play with
-  def initialize
-    @covidTO = []
-    @cities = []
-    @test = 123
-  end
-
-  #
-  # def test_ajax
-  #   [404, { "Content-Type" => "text/html" }, ["this is a test"]]
-  # end
-  #
-
-  # getting and sorting covid data
-  def retrieve_geoJson
-    puts 'inside retrieve method'
-    url = 'https://data.ontario.ca/dataset/f4112442-bdc8-45d2-be3c-12efae72fb27/resource/4f39b02b-47fe-4e66-95b6-e6da879c6910/download/conposcovidloc.geojson'
-
-    puts 'before read method on url'
-    geoJson = open(url).read
-    # # Parse geoJson data
-    puts 'before decode method on geo'
-    @covid = RGeo::GeoJSON.decode(geoJson)
-
-    # puts 'before selecting'
-    # puts @covid[0]
-    # puts @covid.size
-
-
 # New Version of App based on new data:
 
 # Part 1: Giant amChart of all data
@@ -62,35 +25,12 @@ class Template
 # 2. maybe implement a login & auth
 # 3. something about cookies?
 
-# this is where you are:
 
-# method to find total case count per unique city
-    def find_case_count(city_string)
-      cases = []
-      @covid.each do |c|
-        if c.properties['Reporting_PHU_City'].eql?(city_string) && c.properties['Outcome1'].eql?('Not Resolved')
-          cases << c
-        end
-      end
-      cases.count
-    end
+class Template
+  include Singleton
 
-  # create a new hash to contain city => cases data
-  city_hash = Hash.new
-  # for each unique city from @covid dataset, set its value to 0 in the hash
-  unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
-
-  unique_cities.each do |city_name|
-    name_string = city_name.properties['Reporting_PHU_City']
-    city_hash[name_string] = find_case_count(name_string)
-  end
-
-# convert hash to json
-  city_json = city_hash.to_json
-
-
-end
-
+  # class object of template so that we can access api data
+  @@template_display = ERB.new(File.read("template.html.erb"))
 
 # bind and render method for template class obj
 # for when it is initialized later in response body
@@ -100,6 +40,52 @@ end
 
    def google_api_call
    end
+end
+
+
+class Covid_Data
+  include Singleton
+
+  @@city_json = ERB.new(File.read("data.json"))
+  # getting and sorting covid data
+#   def retrieve_geoJson
+#     puts 'inside retrieve method'
+#     url = 'https://data.ontario.ca/dataset/f4112442-bdc8-45d2-be3c-12efae72fb27/resource/4f39b02b-47fe-4e66-95b6-e6da879c6910/download/conposcovidloc.geojson'
+#
+#     puts 'before read method on url'
+#     geoJson = open(url).read
+#     # # Parse geoJson data
+#     puts 'before decode method on geo'
+#     @covid = RGeo::GeoJSON.decode(geoJson)
+#
+# # method to find total case count per unique city
+#     def find_case_count(city_string)
+#       cases = []
+#       @covid.each do |c|
+#         if c.properties['Reporting_PHU_City'].eql?(city_string) && c.properties['Outcome1'].eql?('Not Resolved')
+#           cases << c
+#         end
+#       end
+#       cases.count
+#     end
+#
+#   # create a new hash to contain city => cases data
+#   city_hash = Hash.new
+#   # for each unique city from @covid dataset, set its value to 0 in the hash
+#   unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
+#
+#   unique_cities.each do |city_name|
+#     name_string = city_name.properties['Reporting_PHU_City']
+#     city_hash[name_string] = find_case_count(name_string)
+#   end
+#
+# # convert hash to json
+#     @@city_json = city_hash.to_json
+#   end
+
+  def bind_and_render
+    @@city_json.result(binding)
+  end
 
 end
 
@@ -115,12 +101,25 @@ def successful_get_request(req)
   # resp.finish
 end
 
+# hander for for json data
+def get_json_data
+  resp = Rack::Response.new
+  resp.status = 200
+  resp.set_header('Content-Type', 'json')
+  # resp.write("This is your body")
+  resp.write Covid_Data.instance.bind_and_render
+  p resp
+  # resp.finish
+end
+
 # handler for server requests (routes)
 def routes(req)
-  if req.path = "/"
-     [404, { "Content-Type" => "text/html" }, ["<h1>404</h1>"]]
-  else
+  if req.path == "/"
     successful_get_request(req)
+  elsif req.path == "/json"
+    get_json_data
+  else
+    [404, { "Content-Type" => "text/html" }, ["<h1>404</h1>"]]
   end
 end
 
