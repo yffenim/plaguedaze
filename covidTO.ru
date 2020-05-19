@@ -46,42 +46,50 @@ end
 class Covid_Data
   include Singleton
 
-  @@city_json = ERB.new(File.read("data.json"))
+  def initialize
+    @@city_json
+  end
+
+  @@city_json = ERB.new(File.read("data.json.erb"))
   # getting and sorting covid data
-#   def retrieve_geoJson
-#     puts 'inside retrieve method'
-#     url = 'https://data.ontario.ca/dataset/f4112442-bdc8-45d2-be3c-12efae72fb27/resource/4f39b02b-47fe-4e66-95b6-e6da879c6910/download/conposcovidloc.geojson'
-#
-#     puts 'before read method on url'
-#     geoJson = open(url).read
-#     # # Parse geoJson data
-#     puts 'before decode method on geo'
-#     @covid = RGeo::GeoJSON.decode(geoJson)
-#
-# # method to find total case count per unique city
-#     def find_case_count(city_string)
-#       cases = []
-#       @covid.each do |c|
-#         if c.properties['Reporting_PHU_City'].eql?(city_string) && c.properties['Outcome1'].eql?('Not Resolved')
-#           cases << c
-#         end
-#       end
-#       cases.count
-#     end
-#
-#   # create a new hash to contain city => cases data
-#   city_hash = Hash.new
-#   # for each unique city from @covid dataset, set its value to 0 in the hash
-#   unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
-#
-#   unique_cities.each do |city_name|
-#     name_string = city_name.properties['Reporting_PHU_City']
-#     city_hash[name_string] = find_case_count(name_string)
-#   end
-#
-# # convert hash to json
-#     @@city_json = city_hash.to_json
-#   end
+  def retrieve_geoJson
+    puts 'inside retrieve method'
+    url = 'https://data.ontario.ca/dataset/f4112442-bdc8-45d2-be3c-12efae72fb27/resource/4f39b02b-47fe-4e66-95b6-e6da879c6910/download/conposcovidloc.geojson'
+
+    puts 'before read method on url'
+    geoJson = open(url).read
+    # # Parse geoJson data
+    puts 'before decode method on geo'
+    @covid = RGeo::GeoJSON.decode(geoJson)
+
+# method to find total case count per unique city
+    def find_case_count(city_string)
+      cases = []
+      @covid.each do |c|
+        if c.properties['Reporting_PHU_City'].eql?(city_string) && c.properties['Outcome1'].eql?('Not Resolved')
+          cases << c
+        end
+      end
+      cases.count
+    end
+
+  # create a new hash to contain city => cases data
+  city_hash = Hash.new
+  # for each unique city from @covid dataset, set its value to 0 in the hash
+  unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
+
+  unique_cities.each do |city_name|
+    name_string = city_name.properties['Reporting_PHU_City']
+    city_hash[name_string] = find_case_count(name_string)
+  end
+
+# convert hash to json
+    @@city_json = city_hash.to_json
+  end
+
+  def city_json
+    @@city_json
+  end
 
   def bind_and_render
     @@city_json.result(binding)
