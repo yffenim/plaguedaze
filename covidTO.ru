@@ -22,6 +22,12 @@ class Template
     @test = 123
   end
 
+
+  def test_ajax
+    [404, { "Content-Type" => "text/html" }, ["this is a test"]]
+  end
+
+
   # getting and sorting covid data
   def retrieve_geoJson
     puts 'inside retrieve method'
@@ -41,14 +47,14 @@ class Template
 # New Version of App based on new data:
 
 # Part 1: Giant amChart of all data
-# 1. go through data, find total cases per city
-# 2. save findings into hash of cities => cases
-# 3. make amChart all pretty
+# figure out how to move data to template
+# make into pie chart layers
 
-
-# Part 2: Click on your city to render a google heat map of cases there
+# Part 2: Click on your city to render a
+# google heat map of cases there
 # (have this as a pop-up?)
-# have this randomly generated but accurately reflects how many cases there are
+# have this randomly generated
+# but accurately reflects how many cases there are
 
 
 # Part 3: security
@@ -56,9 +62,8 @@ class Template
 # 2. maybe implement a login & auth
 # 3. something about cookies?
 
-
-
 # this is where you are:
+
 # method to find total case count per unique city
     def find_case_count(city_string)
       cases = []
@@ -76,15 +81,10 @@ class Template
   unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
 
   unique_cities.each do |city_name|
-    city_hash[city_name.properties['Reporting_PHU_City']] = find_case_count(city_name.properties['Reporting_PHU_City'])
+    name_string = city_name.properties['Reporting_PHU_City']
+    city_hash[name_string] = find_case_count(name_string)
   end
-
-  puts 'after setting city hash key values to method to count case totals'
-  puts city_hash["Toronto"]
-  puts city_hash["Oakville"]
-  puts city_hash["Newmarket"]
-  puts city_hash["London"]
-
+  puts city_hash
 
 end
 

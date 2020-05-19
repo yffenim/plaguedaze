@@ -9,6 +9,27 @@
   <body>
     <h1>HTML template page is rendered</h1>
 
+<script>
+    var xhr = new XMLHttpRequest();
+    xhr.open('test_ajax', 'covidTO.ru');
+
+    // Track the state changes of the request.
+    xhr.onreadystatechange = function () {
+    	var DONE = 4; // readyState 4 means the request is done.
+    	var OK = 200; // status 200 is a successful return.
+    	if (xhr.readyState === DONE) {
+    		if (xhr.status === OK) {
+    			console.log(xhr.responseText); // 'This is the output.'
+    		} else {
+    			console.log('Error: ' + xhr.status); // An error occurred during the request.
+    		}
+    	}
+    };
+
+    // Send the request to send-ajax-data.php
+    xhr.send(null);
+
+</script>
 
 <!-- *** amCharts Pie Chart *** -->
     <script src="//www.amcharts.com/lib/4/core.js"></script>
@@ -104,7 +125,7 @@
           heatmap.setMap(map);
         </script>
 
-        
+
 
   </body>
 </html>

@@ -106,3 +106,34 @@ Click me to display Date and Time.</button>
     # @covidTO.each do |property|
     #   @coordinates << property.geometry.as_text
     # end
+
+
+    # this is where you are:
+    # method to find total case count per unique city
+        def find_case_count(city_string)
+          cases = []
+          @covid.each do |c|
+            if c.properties['Reporting_PHU_City'].eql?(city_string) && c.properties['Outcome1'].eql?('Not Resolved')
+              cases << c
+            end
+          end
+          cases.count
+        end
+
+      # create a new hash to contain city => cases data
+      city_hash = Hash.new
+      # for each unique city from @covid dataset, set its value to 0 in the hash
+      unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
+
+      unique_cities.each do |city_name|
+        name_string = city_name.properties['Reporting_PHU_City']
+        city_hash[name_string] = find_case_count(name_string)
+      end
+
+
+      puts city_hash
+      # puts 'after setting city hash key values to method to count case totals'
+      # puts city_hash["Toronto"]
+      # puts city_hash["Oakville"]
+      # puts city_hash["Newmarket"]
+      # puts city_hash["London"]
