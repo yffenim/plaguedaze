@@ -11,7 +11,7 @@
 
 <script>
     var xhr = new XMLHttpRequest();
-    xhr.open('test_ajax', 'covidTO.ru');
+    xhr.open('GET', '/', true);
 
     // Track the state changes of the request.
     xhr.onreadystatechange = function () {
@@ -22,7 +22,8 @@
     			console.log(xhr.responseText); // 'This is the output.'
     		} else {
     			console.log('Error: ' + xhr.status); // An error occurred during the request.
-    		}
+          console.log('Test Log: ' + xhr.status)
+        }
     	}
     };
 

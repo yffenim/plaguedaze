@@ -22,11 +22,11 @@ class Template
     @test = 123
   end
 
-
-  def test_ajax
-    [404, { "Content-Type" => "text/html" }, ["this is a test"]]
-  end
-
+  #
+  # def test_ajax
+  #   [404, { "Content-Type" => "text/html" }, ["this is a test"]]
+  # end
+  #
 
   # getting and sorting covid data
   def retrieve_geoJson
@@ -84,7 +84,10 @@ class Template
     name_string = city_name.properties['Reporting_PHU_City']
     city_hash[name_string] = find_case_count(name_string)
   end
-  puts city_hash
+
+# convert hash to json
+  city_json = city_hash.to_json
+
 
 end
 
@@ -114,7 +117,7 @@ end
 
 # handler for server requests (routes)
 def routes(req)
-  if req.path != "/"
+  if req.path = "/"
      [404, { "Content-Type" => "text/html" }, ["<h1>404</h1>"]]
   else
     successful_get_request(req)
