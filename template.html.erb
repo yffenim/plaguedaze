@@ -9,6 +9,11 @@
   <body>
     <h1>HTML template page is rendered</h1>
 
+    <% retrieve_geoJson %>
+    <%= city_json %>
+
+<button id="click" onclick="clickFunction()">Click to Chart</button>
+
 <script>
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '/json', true);
@@ -94,12 +99,9 @@
     </script>
 
 
-
-
      <!-- *** google heat map *** -->
 
         <div id="map">
-          <%# <% retrieve_geoJson %> %>
           <%= google_api_call %>
         </div>
 

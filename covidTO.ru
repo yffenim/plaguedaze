@@ -4,21 +4,19 @@ require 'json'
 require 'rgeo/geo_json'
 require 'open-uri'
 require 'singleton'
-require 'bundler'
 
-# do i need a require bundler and what is it actually doing?
 # New Version of App based on new data:
 
 # Part 1: Giant amChart of all data
-# figure out how to move data to template
-# make into pie chart layers
+# sort data into variables for chart and make chart
+# make page so that a table of current covid cases appears
+# click to chart it, table fades, chart appears
+# click to map the cases per city
 
 # Part 2: Click on your city to render a
 # google heat map of cases there
-# (have this as a pop-up?)
 # have this randomly generated
 # but accurately reflects how many cases there are
-
 
 # Part 3: security
 # 1. figure out env/yaml for api
@@ -40,18 +38,7 @@ class Template
 
    def google_api_call
    end
-end
 
-
-class Covid_Data
-  include Singleton
-
-  def initialize
-    @@city_json
-  end
-
-  @@city_json = ERB.new(File.read("data.json.erb"))
-  # getting and sorting covid data
   def retrieve_geoJson
     puts 'inside retrieve method'
     url = 'https://data.ontario.ca/dataset/f4112442-bdc8-45d2-be3c-12efae72fb27/resource/4f39b02b-47fe-4e66-95b6-e6da879c6910/download/conposcovidloc.geojson'
@@ -91,10 +78,6 @@ class Covid_Data
     @@city_json
   end
 
-  def bind_and_render
-    @@city_json.result(binding)
-  end
-
 end
 
 
@@ -109,23 +92,11 @@ def successful_get_request(req)
   # resp.finish
 end
 
-# hander for for json data
-def get_json_data
-  resp = Rack::Response.new
-  resp.status = 200
-  resp.set_header('Content-Type', 'json')
-  # resp.write("This is your body")
-  resp.write Covid_Data.instance.bind_and_render
-  p resp
-  # resp.finish
-end
 
 # handler for server requests (routes)
 def routes(req)
   if req.path == "/"
     successful_get_request(req)
-  elsif req.path == "/json"
-    get_json_data
   else
     [404, { "Content-Type" => "text/html" }, ["<h1>404</h1>"]]
   end
