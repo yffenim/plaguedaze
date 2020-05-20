@@ -14,6 +14,10 @@
 <button id="click" onclick="clickFunction()">Click to Chart</button>
 
 <script>
+
+
+
+
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '/json', true);
 
@@ -50,7 +54,7 @@
 
     chart.data = [{
       "city": "London",
-      "cases": <%= london %>
+      "cases": 100
     }, {
       "city": "Missussauga",
       "cases": 301.9
@@ -65,7 +69,7 @@
       "cases": 139.9
     }, {
       "city": "Ottawa",
-      "cases": 128.3
+      "cases": <%= ottawa %>
     }, {
       "city": "Chatham",
       "cases": 99

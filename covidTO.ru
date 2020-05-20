@@ -72,9 +72,30 @@ class Template
     puts city_hash
 
     # write method to sort cities by those with cases over/under 100
+    over100 = {}
+    under100 = {}
+
+    city_hash.each do |k,v|
+      if v > 100
+        over100[k] = v
+      else
+        under100[k] = v
+      end
+    end
     # write method to make a variable out of each case
+    def london
+      # some num
+    end
+
+
+
   end
 end
+
+
+
+
+
 
 
 # handler for successful get requests, app has no post
