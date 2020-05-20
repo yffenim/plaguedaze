@@ -60,24 +60,20 @@ class Template
       cases.count
     end
 
-  # create a new hash to contain city => cases data
-  city_hash = Hash.new
-  # for each unique city from @covid dataset, set its value to 0 in the hash
-  unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
+    # create a new hash to contain city => cases data
+    city_hash = Hash.new
+    # for each unique city from @covid dataset, set its value to 0 in the hash
+    unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
 
-  unique_cities.each do |city_name|
-    name_string = city_name.properties['Reporting_PHU_City']
-    city_hash[name_string] = find_case_count(name_string)
+    unique_cities.each do |city_name|
+      name_string = city_name.properties['Reporting_PHU_City']
+      city_hash[name_string] = find_case_count(name_string)
+    end
+    puts city_hash
+
+    # write method to sort cities by those with cases over/under 100
+    # write method to make a variable out of each case
   end
-
-# convert hash to json
-    @@city_json = city_hash.to_json
-  end
-
-  def city_json
-    @@city_json
-  end
-
 end
 
 

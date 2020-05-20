@@ -1,0 +1,16 @@
+20/03/20
+
+Starting a new file of learning notes because having them
+electronically accessible is better than physical notes for the
+purpose of quick searching.
+
+Summary of yesterday:
+I wanted to sort through the Covid page separate from the
+page loading (because it slows down the initial app) so I created
+a separate class for data logic with its own url. But that meant
+that I needed to render a separate template for the method call
+to happen. It also meant that that separate page had to be loaded
+for the data to come through so I don't have access to it via
+AJAX on template page (without the separate page load).
+So I returned to initial organization of logic in
+one Template class and will now have it call upon click.

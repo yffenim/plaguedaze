@@ -10,7 +10,6 @@
     <h1>HTML template page is rendered</h1>
 
     <% retrieve_geoJson %>
-    <%= city_json %>
 
 <button id="click" onclick="clickFunction()">Click to Chart</button>
 
@@ -51,7 +50,7 @@
 
     chart.data = [{
       "city": "London",
-      "cases": 501.9
+      "cases": <%= london %>
     }, {
       "city": "Missussauga",
       "cases": 301.9
