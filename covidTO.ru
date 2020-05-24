@@ -86,15 +86,8 @@ class Template
     def london
       # some num
     end
-
-
-
   end
 end
-
-
-
-
 
 
 
@@ -105,8 +98,13 @@ def successful_get_request(req)
   resp.set_header('Content-Type', 'text/html')
   # resp.write("This is your body")
   resp.write Template.instance.bind_and_render
-  p resp
-  # resp.finish
+
+  # resp finish method needs to be here because it is a
+  # Rack::Response object method so having it in my app sever
+  # method will throw errors for the server responses that
+  # are not Rack::Reponse objects
+  resp.finish
+
 end
 
 
@@ -123,7 +121,7 @@ end
 def app_server
   app = Proc.new do |env|
   req = Rack::Request.new(env)
-  routes(req).finish
+  routes(req)
   end
 
 # serve static resources

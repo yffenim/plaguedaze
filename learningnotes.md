@@ -56,3 +56,9 @@ that my app in the end has:
 - maybe tie it to a database?
 
 Deciding to spend the day on research.
+
+
+May 24:
+
+It looks like I will have to create the GeoJson resources as
+a POST request (and not a GET)
