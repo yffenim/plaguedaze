@@ -10,9 +10,9 @@
     <h1>HTML template page is rendered</h1>
 
     <% retrieve_geoJson %>
+    <h3>test: <%= mississauga %></h3>
 
 <button id="click" onclick="clickFunction()">Click to Chart</button>
-
 
 <!-- *** amCharts Pie Chart *** -->
     <script src="//www.amcharts.com/lib/4/core.js"></script>
@@ -27,32 +27,23 @@
     var chart = am4core.create("chartdiv", am4charts.PieChart);
 
     chart.data = [{
-      "city": "London",
-      "cases": 100
+      "city": "Toronto",
+      "cases": <%= toronto %>
     }, {
-      "city": "Missussauga",
-      "cases": 301.9
-    }, {
-      "city": "Waterloo",
-      "cases": 201.1
-    }, {
-      "city": "Hamilton",
-      "cases": 165.8
+      "city": "Mississauga",
+      "cases": <%= mississauga %>
     }, {
       "city": "Newmarket",
-      "cases": 139.9
+      "cases": <%= newmarket %>
+    }, {
+      "city": "Hamilton",
+      "cases": <%= hamilton %>
     }, {
       "city": "Ottawa",
-      "cases": 90
+      "cases": <%= ottawa %>
     }, {
-      "city": "Chatham",
-      "cases": 99
-    }, {
-      "city": "Whitby",
-      "cases": 60
-    }, {
-      "city": "Windor",
-      "cases": 50
+      "city": "Windsor",
+      "cases": <%= windsor %>
     }];
 
     var pieSeries = chart.series.push(new am4charts.PieSeries());

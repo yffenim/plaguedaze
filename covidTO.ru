@@ -61,31 +61,57 @@ class Template
     end
 
     # create a new hash to contain city => cases data
-    city_hash = Hash.new
+    @city_hash = Hash.new
     # for each unique city from @covid dataset, set its value to 0 in the hash
     unique_cities = @covid.uniq {|covid| covid.properties['Reporting_PHU_City'] }
 
     unique_cities.each do |city_name|
       name_string = city_name.properties['Reporting_PHU_City']
-      city_hash[name_string] = find_case_count(name_string)
+      @city_hash[name_string] = find_case_count(name_string)
     end
-    puts city_hash
+    # puts @city_hash
 
     # write method to sort cities by those with cases over/under 100
-    over100 = {}
-    under100 = {}
+    @over100 = {}
+    @under100 = {}
 
-    city_hash.each do |k,v|
+    @city_hash.each do |k,v|
       if v > 100
-        over100[k] = v
+        @over100[k] = v
       else
-        under100[k] = v
+        @under100[k] = v
       end
     end
-    # write method to make a variable out of each case
-    def london
-      # some num
-    end
+
+  # to be refactored later... x___x
+  def mississauga
+    @over100["Mississauga"]
+  end
+
+  def newmarket
+    @over100["Newmarket"]
+  end
+
+  def toronto
+    @over100["Toronto"]
+  end
+
+  def whitby
+    @over100["Whitby"]
+  end
+
+  def hamilton
+    @over100["Hamilton"]
+  end
+
+  def ottawa
+    @over100["Ottawa"]
+  end
+
+  def windsor
+    @over100["Windsor"]
+  end
+
   end
 end
 
