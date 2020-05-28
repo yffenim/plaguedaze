@@ -69,48 +69,146 @@ class Template
       name_string = city_name.properties['Reporting_PHU_City']
       @city_hash[name_string] = find_case_count(name_string)
     end
-    # puts @city_hash
-
-    # write method to sort cities by those with cases over/under 100
-    @over100 = {}
-    @under100 = {}
-
-    @city_hash.each do |k,v|
-      if v > 100
-        @over100[k] = v
-      else
-        @under100[k] = v
-      end
-    end
 
   # to be refactored later... x___x
   def mississauga
-    @over100["Mississauga"]
+    @city_hash["Mississauga"]
   end
 
   def newmarket
-    @over100["Newmarket"]
+    @city_hash["Newmarket"]
   end
 
   def toronto
-    @over100["Toronto"]
+    @city_hash["Toronto"]
   end
 
   def whitby
-    @over100["Whitby"]
+    @city_hash["Whitby"]
   end
 
   def hamilton
-    @over100["Hamilton"]
+    @city_hash["Hamilton"]
   end
 
   def ottawa
-    @over100["Ottawa"]
+    @city_hash["Ottawa"]
   end
 
   def windsor
-    @over100["Windsor"]
+    @city_hash["Windsor"]
   end
+
+# under 100
+
+  def penbroke
+    @city_hash["Penbroke"]
+  end
+
+  def waterloo
+    @city_hash["Waterloo"]
+  end
+
+  def oakville
+    @city_hash["Oakville"]
+  end
+
+  def barrie
+    @city_hash["Barrie"]
+  end
+
+  def peterborough
+    @city_hash["Peterborough"]
+  end
+
+  def thorold
+    @city_hash["Thorold"]
+  end
+
+  def thunderbay
+    @city_hash["Thunder Bay"]
+  end
+
+  def chatham
+    @city_hash["Chatham"]
+  end
+
+  def cornwall
+    @city_hash["Cornwall"]
+  end
+
+  def guelph
+    @city_hash["Guelph"]
+  end
+
+  def brantford
+    @city_hash["Brantford"]
+  end
+
+  def porthope
+    @city_hash["Port Hope"]
+  end
+
+  def kenora
+    @city_hash["Kenora"]
+  end
+
+  def simcoe
+    @city_hash["Simcoe"]
+  end
+
+  def brockville
+    @city_hash["Brockville"]
+  end
+
+  def timmmins
+    @city_hash["Timmins"]
+  end
+
+  def stthomas
+    @city_hash["St. Thomas"]
+  end
+
+  def pointedward
+    @city_hash["Point Edward"]
+  end
+
+  def saultstemarie
+    @city_hash["Sault Ste. Marie"]
+  end
+
+  def london
+    @city_hash["London"]
+  end
+
+  def northbay
+    @city_hash["North Bay"]
+  end
+
+  def owensound
+    @city_hash["Owen Sound"]
+  end
+
+  def stratford
+    @city_hash["Stratford"]
+  end
+
+  def belleville
+    @city_hash["Belleville"]
+  end
+
+  def kingston
+    @city_hash["Kingston"]
+  end
+
+  def sudbury
+    @city_hash["Sudbury"]
+  end
+
+  def newliskeard
+    @city_hash["New Liskeard"]
+  end
+
 
   end
 end

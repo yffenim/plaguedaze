@@ -7,10 +7,10 @@
 
   </head>
   <body>
-    <h1>HTML template page is rendered</h1>
+    <h1>where's my Plague at?</h1>
+    <h2>A Rack-Only App</h2>
 
     <% retrieve_geoJson %>
-    <h3>test: <%= mississauga %></h3>
 
 <button id="click" onclick="clickFunction()">Click to Chart</button>
 
@@ -64,7 +64,19 @@
     hs.properties.scale = 1;
     hs.properties.fillOpacity = 0.5;
 
+  // inner pie
+
+  var pieSeries2 = chart.series.push(new am4charts.PieSeries());
+    pieSeries2.dataFields.value = "cases";
+    pieSeries2.dataFields.category = "city";
+    pieSeries2.slices.template.stroke = am4core.color("#fff");
+    pieSeries2.slices.template.strokeWidth = 2;
+    pieSeries2.slices.template.strokeOpacity = 1;
+    pieSeries2.slices.template.states.getKey("hover").properties.shiftRadius = 0;
+    pieSeries2.slices.template.states.getKey("hover").properties.scale = 1.1;
+
     </script>
+
 
 
      <!-- *** google heat map *** -->
