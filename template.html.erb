@@ -13,32 +13,6 @@
 
 <button id="click" onclick="clickFunction()">Click to Chart</button>
 
-<script>
-
-
-
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/json', true);
-
-    // Track the state changes of the request.
-    xhr.onreadystatechange = function () {
-    	var DONE = 4; // readyState 4 means the request is done.
-    	var OK = 200; // status 200 is a successful return.
-    	if (xhr.readyState === DONE) {
-    		if (xhr.status === OK) {
-    			console.log(xhr.responseText); // 'This is the output.'
-    		} else {
-    			console.log('Error: ' + xhr.status); // An error occurred during the request.
-          console.log('Test Log: ' + xhr.status)
-        }
-    	}
-    };
-
-    // Send the request to send-ajax-data.php
-    xhr.send(null);
-
-</script>
 
 <!-- *** amCharts Pie Chart *** -->
     <script src="//www.amcharts.com/lib/4/core.js"></script>

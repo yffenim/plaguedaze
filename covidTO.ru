@@ -49,7 +49,6 @@ class Template
     # # Parse geoJson data
     puts 'before decode method on geo'
     @covid = RGeo::GeoJSON.decode(geoJson)
-    binding.pry
 # method to find total case count per unique city
     def find_case_count(city_string)
       cases = []
