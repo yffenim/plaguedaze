@@ -1,9 +1,9 @@
 /* amChart  */
-
+/*
 #chartdiv {
   height: 40em;
   margin-top: 3em;
-}
+} */
 
 
 /*  google maps api */
@@ -11,4 +11,20 @@
   width: 100%;
   height: 400px;
   background-color: grey;
+  display: none;
+}
+
+
+body {
+  margin:0px;
+  background: #303950;
+   overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+#introchart {
+  width: 100%;
+  height: 350px;
+  position: absolute;
+
 }

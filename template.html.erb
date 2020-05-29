@@ -15,58 +15,110 @@
 <button id="click" onclick="clickFunction()">Click to Chart</button>
 
 <!-- *** amCharts Pie Chart *** -->
-    <script src="//www.amcharts.com/lib/4/core.js"></script>
-    <script src="//www.amcharts.com/lib/4/charts.js"></script>
-    <script src="//www.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="//www.amcharts.com/lib/4/core.js"></script>
+<script src="//www.amcharts.com/lib/4/charts.js"></script>
+<script src="//www.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="//www.amcharts.com/lib/4/themes/amchartsdark.js"></script>
 
-    <div id="chartdiv">
+    <div id="introchart">
     </div>
 
     <script>
-    am4core.useTheme(am4themes_animated);
-    var chart = am4core.create("chartdiv", am4charts.PieChart);
 
-    chart.data = [{
-      "city": "Toronto",
-      "cases": <%= toronto %>
+    // pieChart.data = [{
+    //   "city": "Toronto",
+    //   "cases":
+    //   "fontColor": am4core.color("#222a3f"),
+    //   "tickDisabled":true
+    // }, {
+    //   "city": "Mississauga",
+    //   "cases":
+    // }, {
+    //   "city": "Newmarket",
+    //   "cases":
+    // }, {
+    //   "city": "Hamilton",
+    //   "cases": <%= hamilton %>
+    // }, {
+    //   "city": "Ottawa",
+    //   "cases": <%= ottawa %>
+    // }, {
+    //   "city": "Windsor",
+    //   "cases": <%= windsor %>
+    // }];
+
+
+    am4core.useTheme(am4themes_amchartsdark);
+    am4core.useTheme(am4themes_animated);
+
+    // main container
+    var mainContainer = am4core.create("introchart", am4core.Container);
+    mainContainer.width = am4core.percent(100);
+    mainContainer.height = am4core.percent(100);
+
+    var pieChart = mainContainer.createChild(am4charts.PieChart);
+    pieChart.radius = am4core.percent(70);
+    pieChart.innerRadius = am4core.percent(40);
+
+    pieChart.data = [{
+        "name": "[bold]Toronto[/]",
+        "fontColor": am4core.color("#222a3f"),
+        "value": <%= toronto %>,
+        "tickDisabled":false
     }, {
-      "city": "Mississauga",
-      "cases": <%= mississauga %>
+        "name": "Mississauga",
+        "radius": 20,
+        "value": <%= mississauga %>,
+        "tickDisabled":true
     }, {
-      "city": "Newmarket",
-      "cases": <%= newmarket %>
-    }, {
-      "city": "Hamilton",
-      "cases": <%= hamilton %>
-    }, {
-      "city": "Ottawa",
-      "cases": <%= ottawa %>
-    }, {
-      "city": "Windsor",
-      "cases": <%= windsor %>
+        "name": "Newmarket",
+        "value": <%= newmarket %>,
+        "tickDisabled":true
     }];
 
-    var pieSeries = chart.series.push(new am4charts.PieSeries());
-    pieSeries.dataFields.value = "cases";
-    pieSeries.dataFields.category = "city";
+    var pieSeries = pieChart.series.push(new am4charts.PieSeries());
+    pieSeries.dataFields.value = "value";
+    pieSeries.dataFields.category = "name";
+    pieSeries.alignLabels = false;
 
-// add inner radius
-    chart.innerRadius = am4core.percent(40);
-    pieSeries.slices.template.stroke = am4core.color("#4a2abb");
-    pieSeries.slices.template.strokeWidth = 2;
-    pieSeries.slices.template.strokeOpacity = 1;
+    pieSeries.ticks.template.propertyFields.disabled = "tickDisabled";
 
+    pieSeries.labels.template.text = "{category}";
+    pieSeries.labels.template.propertyFields.fill = "fontColor";
+    pieSeries.labels.template.propertyFields.disabled = "labelDisabled";
+    pieSeries.labels.template.radius = am4core.percent(-30);
+    pieSeries.labels.template.propertyFields.radius = "radius";
 
-  // disable growing hover and add fill opacity
-    pieSeries.slices.template.fillOpacity = 1;
-
-    var hs = pieSeries.slices.template.states.getKey("hover");
-    hs.properties.scale = 1;
-    hs.properties.fillOpacity = 0.5;
-
-    </script>
+    pieSeries.slices.template.tooltipText = "{category}";
+    pieSeries.slices.template.cornerRadius = 8;
+    // this single line creates initial animation
+    pieSeries.hiddenState.properties.endAngle = -90;
 
 
+    pieSeries.events.on("ready", function(){
+      setTimeout(hideSlices, 3000);
+    })
+
+    // hide all slices except one
+    function hideSlices(){
+        pieSeries.slices.each(function(slice){
+            if(slice.dataItem.index != 1){
+                slice.dataItem.hide();
+            }
+        })
+
+        setTimeout(showSlices, 2000);
+    }
+
+    function showSlices(){
+        pieSeries.slices.each(function(slice){
+            slice.dataItem.show();
+        })
+
+        setTimeout(hideSlices, 2000);
+    }
+
+</script>
 
      <!-- *** google heat map *** -->
 
