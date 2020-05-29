@@ -8,11 +8,8 @@
   </head>
   <body>
     <h1>where's my Plague at?</h1>
-    <h2>A Rack-Only App</h2>
 
     <% retrieve_geoJson %>
-
-<button id="click" onclick="clickFunction()">Click to Chart</button>
 
 <!-- *** amCharts Pie Chart *** -->
 <script src="//www.amcharts.com/lib/4/core.js"></script>
@@ -61,18 +58,30 @@
     pieChart.innerRadius = am4core.percent(40);
 
     pieChart.data = [{
-        "name": "[bold]Toronto[/]",
-        "fontColor": am4core.color("#222a3f"),
-        "value": <%= toronto %>,
+        "name": "Mississauga"
+        // "fontColor": am4core.color("#222a3f"),
+        "value": <%= mississauga %>,
+        "radius": 20,
         "tickDisabled":false
     }, {
-        "name": "Mississauga",
-        "radius": 20,
-        "value": <%= mississauga %>,
+        "name": "Toronto",
+        "value": <%= toronto %>,
         "tickDisabled":true
     }, {
         "name": "Newmarket",
         "value": <%= newmarket %>,
+        "tickDisabled":true
+    }, {
+        "name": "Hamilton",
+        "value": <%= hamilton %>,
+        "tickDisabled":true
+    }, {
+        "name": "Ottawa",
+        "value": <%= ottawa %>,
+        "tickDisabled":true
+    }, {
+        "name": "Windsor",
+        "value": <%= windsor %>,
         "tickDisabled":true
     }];
 
