@@ -44,87 +44,6 @@
     }, {
       "city": "Windsor",
       "cases": <%= windsor %>
-    }, {
-      "city": "Penbroke",
-      "cases": <%= penbroke %>
-    }, {
-      "city": "Waterloo",
-      "cases": <%= waterloo %>
-    }, {
-      "city": "Oakville",
-      "cases": <%= oakville %>
-    }, {
-      "city": "Barrie",
-      "cases": <%= barrie %>
-    }, {
-      "city": "Peterborough",
-      "cases": <%= peterborough %>
-    }, {
-      "city": "Thorold",
-      "cases": <%= thorold %>
-    }, {
-      "city": "Thunderbay",
-      "cases": <%= thunderbay %>
-    }, {
-      "city": "Chatham",
-      "cases": <%= chatham %>
-    }, {
-      "city": "Cornwall",
-      "cases": <%= cornwall %>
-    }, {
-      "city": "Guelph",
-      "cases": <%= guelph %>
-    }, {
-      "city": "Brantford",
-      "cases": <%= brantford %>
-    }, {
-      "city": "Port Hope",
-      "cases": <%= porthope %>
-    }, {
-      "city": "Kenora",
-      "cases": <%= kenora %>
-    }, {
-      "city": "Simcoe",
-      "cases": <%= simcoe %>
-    }, {
-      "city": "Brockville",
-      "cases": <%= brockville %>
-    }, {
-      "city": "Timmins",
-      "cases": <%= timmmins %>
-    }, {
-      "city": "St. Thomas",
-      "cases": <%= stthomas %>
-    }, {
-      "city": "Point Edward",
-      "cases": <%= pointedward %>
-    }, {
-      "city": "Sault Ste. Marie",
-      "cases": <%= saultstemarie %>
-    }, {
-      "city": "London",
-      "cases": <%= london %>
-    }, {
-      "city": "North Bay",
-      "cases": <%= northbay %>
-    }, {
-      "city": "Owen Sound",
-      "cases": <%= owensound %>
-    }, {
-      "city": "Stratford",
-      "cases": <%= stratford %>
-    }, {
-      "city": "Belleville",
-      "cases": <%= belleville %>
-    }, {
-      "city": "Kingston",
-      "cases": <%= kingston %>
-    }, {
-      "city": "Sudbury",
-      "cases": <%= sudbury %>
-    }, {
-      "city": "New Liskeard",
-      "cases": <%= newliskeard %>
     }];
 
     var pieSeries = chart.series.push(new am4charts.PieSeries());
@@ -144,17 +63,6 @@
     var hs = pieSeries.slices.template.states.getKey("hover");
     hs.properties.scale = 1;
     hs.properties.fillOpacity = 0.5;
-
-  // inner pie
-
-  var pieSeries2 = chart.series.push(new am4charts.PieSeries());
-    pieSeries2.dataFields.value = "cases";
-    pieSeries2.dataFields.category = "city";
-    pieSeries2.slices.template.stroke = am4core.color("#fff");
-    pieSeries2.slices.template.strokeWidth = 2;
-    pieSeries2.slices.template.strokeOpacity = 1;
-    pieSeries2.slices.template.states.getKey("hover").properties.shiftRadius = 0;
-    pieSeries2.slices.template.states.getKey("hover").properties.scale = 1.1;
 
     </script>
 
