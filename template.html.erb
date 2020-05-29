@@ -7,7 +7,7 @@
 
   </head>
   <body>
-    <h1>where's my Plague at?</h1>
+    <h1>where's my plague at?</h1>
 
     <% retrieve_geoJson %>
 
@@ -58,29 +58,29 @@
     pieChart.innerRadius = am4core.percent(40);
 
     pieChart.data = [{
-        "name": "Mississauga",
+        "name": "Mississauga: <%= mississauga %>",
         // "fontColor": am4core.color("#222a3f"),
         "value": <%= mississauga %>,
         "radius": 20,
         "tickDisabled":false
     }, {
-        "name": "Toronto",
+        "name": "Toronto: <%= toronto %>" ,
         "value": <%= toronto %>,
         "tickDisabled":true
     }, {
-        "name": "Newmarket",
+        "name": "Newmarket: <%= newmarket %>",
         "value": <%= newmarket %>,
         "tickDisabled":true
     }, {
-        "name": "Hamilton",
+        "name": "Hamilton: <%= hamilton %>",
         "value": <%= hamilton %>,
         "tickDisabled":true
     }, {
-        "name": "Ottawa",
+        "name": "Ottawa: <%= ottawa %>",
         "value": <%= ottawa %>,
         "tickDisabled":true
     }, {
-        "name": "Windsor",
+        "name": "Windsor: <%= windsor %>",
         "value": <%= windsor %>,
         "tickDisabled":true
     }];
