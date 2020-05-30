@@ -20,9 +20,6 @@ class Template
      @@template_display.result(binding)
    end
 
-   def google_api_call
-   end
-
   def retrieve_geoJson
     puts 'inside retrieve method'
     url = 'https://data.ontario.ca/dataset/f4112442-bdc8-45d2-be3c-12efae72fb27/resource/4f39b02b-47fe-4e66-95b6-e6da879c6910/download/conposcovidloc.geojson'

@@ -2,30 +2,16 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>das close enuf</title>
     <link rel="stylesheet" type="text/css" href="static/stylesheet.css" media="screen"/>
 
   </head>
   <body>
-    <h1 id="blink">where's my plague at?</h1>
+
+
+    <button onclick="toggledisplay()">where is my plague at?</button>
 
     <% retrieve_geoJson %>
-
-<!-- blinking title -->
-    <script>
-
-    toggleItem = function(){
-        var el = document.getElementsByTagName('blink')[0];
-        if (el.style.display === 'block') {
-            el.style.display = 'none';
-        } else {
-            el.style.display = 'block';
-        }
-    }
-
-    setInterval(toggleItem, 1000);
-
-    </script>
 
 <!-- *** amCharts Pie Chart *** -->
 <script src="//www.amcharts.com/lib/4/core.js"></script>
@@ -119,7 +105,13 @@
         setTimeout(hideSlices, 4000);
     }
 
-</script>
+  function toggledisplay(elementID)
+      {
+          (function(style) {
+              style.display = style.display === 'none' ? 'block' : 'none';
+          })(document.getElementById("introchart").style);
+      }
 
+  </script>
   </body>
 </html>
