@@ -7,9 +7,25 @@
 
   </head>
   <body>
-    <h1>where's my plague at?</h1>
+    <h1 id="blink">where's my plague at?</h1>
 
     <% retrieve_geoJson %>
+
+<!-- blinking title -->
+    <script>
+
+    toggleItem = function(){
+        var el = document.getElementsByTagName('blink')[0];
+        if (el.style.display === 'block') {
+            el.style.display = 'none';
+        } else {
+            el.style.display = 'block';
+        }
+    }
+
+    setInterval(toggleItem, 1000);
+
+    </script>
 
 <!-- *** amCharts Pie Chart *** -->
 <script src="//www.amcharts.com/lib/4/core.js"></script>
@@ -20,35 +36,11 @@
     <div id="introchart">
     </div>
 
-    <script>
-
-    // pieChart.data = [{
-    //   "city": "Toronto",
-    //   "cases":
-    //   "fontColor": am4core.color("#222a3f"),
-    //   "tickDisabled":true
-    // }, {
-    //   "city": "Mississauga",
-    //   "cases":
-    // }, {
-    //   "city": "Newmarket",
-    //   "cases":
-    // }, {
-    //   "city": "Hamilton",
-    //   "cases": <%= hamilton %>
-    // }, {
-    //   "city": "Ottawa",
-    //   "cases": <%= ottawa %>
-    // }, {
-    //   "city": "Windsor",
-    //   "cases": <%= windsor %>
-    // }];
-
+  <script>
 
     am4core.useTheme(am4themes_amchartsdark);
     am4core.useTheme(am4themes_animated);
 
-    // main container
     var mainContainer = am4core.create("introchart", am4core.Container);
     mainContainer.width = am4core.percent(100);
     mainContainer.height = am4core.percent(100);
@@ -105,7 +97,7 @@
 
 
     pieSeries.events.on("ready", function(){
-      setTimeout(hideSlices, 3000);
+      setTimeout(hideSlices, 6000);
     })
 
     // hide all slices except one
@@ -116,7 +108,7 @@
             }
         })
 
-        setTimeout(showSlices, 2000);
+        setTimeout(showSlices, 4000);
     }
 
     function showSlices(){
@@ -124,41 +116,10 @@
             slice.dataItem.show();
         })
 
-        setTimeout(hideSlices, 2000);
+        setTimeout(hideSlices, 4000);
     }
 
 </script>
-
-     <!-- *** google heat map *** -->
-
-        <div id="map">
-          <%= google_api_call %>
-        </div>
-
-        <script>
-          alert("be present");
-
-          var heatmapData = [
-            new google.maps.LatLng(43.6532, -79.3794),
-            new google.maps.LatLng(43.6532, -79.3783),
-            new google.maps.LatLng(43.6532, -79.3710)
-          ];
-
-          var covidToronto = new google.maps.LatLng(43.6532, -79.3832);
-
-          map = new google.maps.Map(document.getElementById('map'), {
-            center: covidToronto,
-            zoom: 13,
-            mapTypeId: 'satellite'
-          });
-
-          var heatmap = new google.maps.visualization.HeatmapLayer({
-            data: heatmapData
-          });
-          heatmap.setMap(map);
-        </script>
-
-
 
   </body>
 </html>

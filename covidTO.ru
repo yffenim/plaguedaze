@@ -6,23 +6,6 @@ require 'open-uri'
 require 'singleton'
 require 'pry'
 
-# New Version of App based on new data:
-
-# Part 1: Giant amChart of all data
-# sort data into variables for chart and make chart
-# make page so that a table of current covid cases appears
-# click to chart it, table fades, chart appears
-# click to map the cases per city
-
-# Part 2: Click on your city to render a
-# google heat map of cases there
-# have this randomly generated
-# but accurately reflects how many cases there are
-
-# Part 3: security
-# 1. figure out env/yaml for api
-# 2. maybe implement a login & auth
-# 3. something about cookies?
 
 
 class Template

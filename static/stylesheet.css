@@ -1,20 +1,3 @@
-/* amChart  */
-/*
-#chartdiv {
-  height: 40em;
-  margin-top: 3em;
-} */
-
-
-/*  google maps api */
-#map {
-  width: 100%;
-  height: 400px;
-  background-color: grey;
-  display: none;
-}
-
-
 body {
   margin:0px;
   background: #303950;
