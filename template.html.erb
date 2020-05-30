@@ -9,7 +9,7 @@
   <body>
 
 
-    <button onclick="toggledisplay()">show me the plague!!!</button>
+    <button id="button" onclick="toggledisplay()">where is the plague??</button>
 
     <% retrieve_geoJson %>
 
@@ -109,6 +109,7 @@
       {
           (function(style) {
               style.display = style.display === 'none' ? 'block' : 'none';
+              document.getElementById("button").innerText = document.getElementById("button").innerText === "where is the plague??" ? "show me the plague!!" : "I'm having a meltdown";
           })(document.getElementById("introchart").style);
       }
 
