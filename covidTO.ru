@@ -14,22 +14,19 @@ class Template
   # class object of template so that we can access api data
   @@template_display = ERB.new(File.read("template.html.erb"))
 
-# bind and render method for template class obj
-# for when it is initialized later in response body
-   def bind_and_render
+  # bind and render method for template class obj
+  # for when it is initialized later in response body
+  def bind_and_render
      @@template_display.result(binding)
-   end
+  end
 
   def retrieve_geoJson
-    puts 'inside retrieve method'
     url = 'https://data.ontario.ca/dataset/f4112442-bdc8-45d2-be3c-12efae72fb27/resource/4f39b02b-47fe-4e66-95b6-e6da879c6910/download/conposcovidloc.geojson'
-
-    puts 'before read method on url'
     geoJson = open(url).read
-    # # Parse geoJson data
-    puts 'before decode method on geo'
+    # Parse geoJson data
     @covid = RGeo::GeoJSON.decode(geoJson)
-# method to find total case count per unique city
+
+    # method to find total case count per unique city
     def find_case_count(city_string)
       cases = []
       @covid.each do |c|
@@ -78,26 +75,16 @@ class Template
     def windsor
       @city_hash["Windsor"]
     end
-
   end
 end
-
-
 
 # handler for successful get requests, app has no post
 def successful_get_request(req)
   resp = Rack::Response.new
   resp.status = 200
   resp.set_header('Content-Type', 'text/html')
-  # resp.write("This is your body")
   resp.write Template.instance.bind_and_render
-
-  # resp finish method needs to be here because it is a
-  # Rack::Response object method so having it in my app sever
-  # method will throw errors for the server responses that
-  # are not Rack::Reponse objects
   resp.finish
-
 end
 
 
@@ -113,10 +100,9 @@ end
 # the server
 def app_server
   app = Proc.new do |env|
-  req = Rack::Request.new(env)
-  routes(req)
+    req = Rack::Request.new(env)
+    routes(req)
   end
-
 # serve static resources
   Rack::Static.new(app, :urls => ["/static"])
 end

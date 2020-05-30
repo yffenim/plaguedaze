@@ -8,112 +8,108 @@
   </head>
   <body>
 
-
     <button id="button" onclick="toggledisplay()">where is the plague??</button>
-
     <% retrieve_geoJson %>
 
 <!-- *** amCharts Pie Chart *** -->
-<script src="//www.amcharts.com/lib/4/core.js"></script>
-<script src="//www.amcharts.com/lib/4/charts.js"></script>
-<script src="//www.amcharts.com/lib/4/themes/animated.js"></script>
-<script src="//www.amcharts.com/lib/4/themes/amchartsdark.js"></script>
+    <script src="//www.amcharts.com/lib/4/core.js"></script>
+    <script src="//www.amcharts.com/lib/4/charts.js"></script>
+    <script src="//www.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="//www.amcharts.com/lib/4/themes/amchartsdark.js"></script>
 
-    <div id="introchart">
+    <div id="covidChart">
     </div>
 
-  <script>
+    <script>
 
-    am4core.useTheme(am4themes_amchartsdark);
-    am4core.useTheme(am4themes_animated);
+      am4core.useTheme(am4themes_amchartsdark);
+      am4core.useTheme(am4themes_animated);
 
-    var mainContainer = am4core.create("introchart", am4core.Container);
-    mainContainer.width = am4core.percent(100);
-    mainContainer.height = am4core.percent(100);
+      var mainContainer = am4core.create("covidChart", am4core.Container);
+      mainContainer.width = am4core.percent(100);
+      mainContainer.height = am4core.percent(100);
 
-    var pieChart = mainContainer.createChild(am4charts.PieChart);
-    pieChart.radius = am4core.percent(70);
-    pieChart.innerRadius = am4core.percent(40);
+      var pieChart = mainContainer.createChild(am4charts.PieChart);
+      pieChart.radius = am4core.percent(70);
+      pieChart.innerRadius = am4core.percent(40);
 
-    pieChart.data = [{
-        "name": "Mississauga: <%= mississauga %>",
-        // "fontColor": am4core.color("#222a3f"),
-        "value": <%= mississauga %>,
-        "radius": 20,
-        "tickDisabled":false
-    }, {
-        "name": "Toronto: <%= toronto %>" ,
-        "value": <%= toronto %>,
-        "tickDisabled":true
-    }, {
-        "name": "Newmarket: <%= newmarket %>",
-        "value": <%= newmarket %>,
-        "tickDisabled":true
-    }, {
-        "name": "Hamilton: <%= hamilton %>",
-        "value": <%= hamilton %>,
-        "tickDisabled":true
-    }, {
-        "name": "Ottawa: <%= ottawa %>",
-        "value": <%= ottawa %>,
-        "tickDisabled":true
-    }, {
-        "name": "Windsor: <%= windsor %>",
-        "value": <%= windsor %>,
-        "tickDisabled":true
-    }];
+      pieChart.data = [{
+          "name": "Mississauga: <%= mississauga %>",
+          // "fontColor": am4core.color("#222a3f"),
+          "value": <%= mississauga %>,
+          "radius": 20,
+          "tickDisabled":false
+      }, {
+          "name": "Toronto: <%= toronto %>" ,
+          "value": <%= toronto %>,
+          "tickDisabled":true
+      }, {
+          "name": "Newmarket: <%= newmarket %>",
+          "value": <%= newmarket %>,
+          "tickDisabled":true
+      }, {
+          "name": "Hamilton: <%= hamilton %>",
+          "value": <%= hamilton %>,
+          "tickDisabled":true
+      }, {
+          "name": "Ottawa: <%= ottawa %>",
+          "value": <%= ottawa %>,
+          "tickDisabled":true
+      }, {
+          "name": "Windsor: <%= windsor %>",
+          "value": <%= windsor %>,
+          "tickDisabled":true
+      }];
 
-    var pieSeries = pieChart.series.push(new am4charts.PieSeries());
-    pieSeries.dataFields.value = "value";
-    pieSeries.dataFields.category = "name";
-    pieSeries.alignLabels = false;
+      var pieSeries = pieChart.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "value";
+      pieSeries.dataFields.category = "name";
+      pieSeries.alignLabels = false;
 
-    pieSeries.ticks.template.propertyFields.disabled = "tickDisabled";
+      pieSeries.ticks.template.propertyFields.disabled = "tickDisabled";
 
-    pieSeries.labels.template.text = "{category}";
-    pieSeries.labels.template.propertyFields.fill = "fontColor";
-    pieSeries.labels.template.propertyFields.disabled = "labelDisabled";
-    pieSeries.labels.template.radius = am4core.percent(-30);
-    pieSeries.labels.template.propertyFields.radius = "radius";
+      pieSeries.labels.template.text = "{category}";
+      pieSeries.labels.template.propertyFields.fill = "fontColor";
+      pieSeries.labels.template.propertyFields.disabled = "labelDisabled";
+      pieSeries.labels.template.radius = am4core.percent(-30);
+      pieSeries.labels.template.propertyFields.radius = "radius";
 
-    pieSeries.slices.template.tooltipText = "{category}";
-    pieSeries.slices.template.cornerRadius = 8;
-    // this single line creates initial animation
-    pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.slices.template.tooltipText = "{category}";
+      pieSeries.slices.template.cornerRadius = 8;
+      // this single line creates initial animation
+      pieSeries.hiddenState.properties.endAngle = -90;
 
 
-    pieSeries.events.on("ready", function(){
-      setTimeout(hideSlices, 6000);
-    })
+      pieSeries.events.on("ready", function(){
+        setTimeout(hideSlices, 6000);
+      })
 
-    // hide all slices except one
-    function hideSlices(){
-        pieSeries.slices.each(function(slice){
-            if(slice.dataItem.index != 1){
-                slice.dataItem.hide();
-            }
-        })
+      // hide all slices except one
+      function hideSlices(){
+          pieSeries.slices.each(function(slice){
+              if(slice.dataItem.index != 1){
+                  slice.dataItem.hide();
+              }
+          })
 
-        setTimeout(showSlices, 4000);
-    }
-
-    function showSlices(){
-        pieSeries.slices.each(function(slice){
-            slice.dataItem.show();
-        })
-
-        setTimeout(hideSlices, 4000);
-    }
-
-  function toggledisplay(elementID)
-      {
-          (function(style) {
-              style.display = style.display === 'none' ? 'block' : 'none';
-              document.getElementById("button").innerText = document.getElementById("button").innerText === "where is the plague??" ? "show me the plague!!" : "I'm having a meltdown";
-          })(document.getElementById("introchart").style);
+          setTimeout(showSlices, 4000);
       }
 
+      function showSlices(){
+          pieSeries.slices.each(function(slice){
+              slice.dataItem.show();
+          })
 
-  </script>
+          setTimeout(hideSlices, 4000);
+      }
+
+      function toggledisplay(elementID)
+          {
+              (function(style) {
+                  style.display = style.display === 'none' ? 'block' : 'none';
+                  document.getElementById("button").innerText = document.getElementById("button").innerText === "where is the plague??" ? "show me the plague!!" : "I'm having a meltdown";
+              })(document.getElementById("covidChart").style);
+          }
+    </script>
   </body>
 </html>
