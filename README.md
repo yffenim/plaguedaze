@@ -1,6 +1,6 @@
 A Rack-Only Learning Project App
 
-The goal is to code a minimalist Ruby app that tracks Ontario Covid cases.
+The goal is to code a minimalist Ruby app without using a framework that can track and interpret Covid Cases. The intention is to learn the fundamentals that modern frameworks obscure, i.e. how to script a server, its ports, etc. from scratch.
 
 In theory, this app can:
 - retrieve updated Covid data for Ontario
